@@ -30,6 +30,12 @@
                     <div class="mood-selector-large" id="mood-selector-large">
                         <!-- Moods with avatars will be loaded here -->
                     </div>
+                    <div class="add-avatar-section">
+                        <button type="button" class="btn-add-avatar" id="add-avatar-btn">
+                            <span class="add-icon">+</span>
+                            <span>Add Custom Avatar</span>
+                        </button>
+                    </div>
                     <input type="hidden" id="selected-mood" name="mood" required>
                     <input type="hidden" id="selected-avatar" name="avatar">
                 </section>
@@ -39,7 +45,9 @@
                     <h2 class="section-title">Today's Reflection</h2>
                     <div class="prompt-box">
                         <p class="prompt-text" id="entry-prompt-display">Loading prompt...</p>
-                        <button type="button" class="btn-small" id="new-prompt-btn">Get another prompt</button>
+                        <div class="prompt-actions">
+                            <button type="button" class="btn-refresh" id="new-prompt-btn">Get another prompt</button>
+                        </div>
                     </div>
                 </section>
 
@@ -110,6 +118,48 @@
             </form>
         </div>
     </main>
+
+    <!-- Confirm Modal -->
+    <div class="confirm-modal-overlay" id="confirm-modal-overlay" role="dialog" aria-modal="true">
+        <div class="confirm-modal">
+            <div class="confirm-modal-body">
+                <p class="confirm-modal-icon">⚠️</p>
+                <p class="confirm-modal-message" id="confirm-modal-message"></p>
+            </div>
+            <div class="confirm-modal-footer">
+                <button type="button" class="modal-btn modal-btn-secondary" id="confirm-modal-cancel">Keep editing</button>
+                <button type="button" class="modal-btn modal-btn-primary" id="confirm-modal-confirm">Discard</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Avatar Modal -->
+    <div class="avatar-modal-overlay" id="avatar-modal-overlay" role="dialog" aria-modal="true">
+        <div class="avatar-modal">
+            <div class="avatar-modal-header">
+                <h2 class="avatar-modal-title">✨ Add Custom Avatar</h2>
+                <button type="button" class="avatar-modal-close" id="avatar-modal-close" aria-label="Close">×</button>
+            </div>
+            <div class="avatar-modal-body">
+                <div class="form-group">
+                    <label class="form-label" for="custom-avatar-name">Name your feeling</label>
+                    <input type="text" id="custom-avatar-name" class="form-input" placeholder="e.g., Hopeful, Anxious, Proud..." maxlength="20">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Choose an animal that represents it</label>
+                    <div class="animal-picker" id="animal-picker"></div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Pick a color</label>
+                    <div class="color-picker" id="color-picker"></div>
+                </div>
+            </div>
+            <div class="avatar-modal-footer">
+                <button type="button" class="modal-btn modal-btn-secondary" id="avatar-modal-cancel">Cancel</button>
+                <button type="button" class="modal-btn modal-btn-primary" id="save-avatar-btn">Save Avatar</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script src="data/moods.js"></script>

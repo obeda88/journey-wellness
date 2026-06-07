@@ -268,6 +268,257 @@
                 font-size: 36px;
             }
         }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(61, 61, 61, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal {
+            background: var(--color-surface);
+            border-radius: 20px;
+            max-width: 520px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.show .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            background: var(--color-surface);
+            border-radius: 20px 20px 0 0;
+            z-index: 1;
+        }
+
+        .modal-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-text);
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            line-height: 1;
+            cursor: pointer;
+            color: var(--color-text-light);
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: rgba(0, 0, 0, 0.05);
+            color: var(--color-text);
+        }
+
+        .modal-body {
+            padding: 24px;
+            color: var(--color-text);
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .modal-body p {
+            margin: 0 0 16px;
+            color: var(--color-text-light);
+        }
+
+        .modal-body .form-group {
+            margin-bottom: 16px;
+        }
+
+        .modal-body .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 14px;
+            color: var(--color-text);
+        }
+
+        .modal-body .form-input,
+        .modal-body .form-textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: var(--color-text);
+            background: #FAFAFA;
+            transition: all 0.2s;
+        }
+
+        .modal-body .form-input:focus,
+        .modal-body .form-textarea:focus {
+            outline: none;
+            border-color: var(--color-calm);
+            background: white;
+        }
+
+        .modal-body .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .modal-body .form-textarea.large {
+            min-height: 200px;
+        }
+
+        .modal-body .instruction-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 16px;
+        }
+
+        .modal-body .instruction-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: var(--color-text);
+        }
+
+        .modal-body .instruction-list li:last-child {
+            border-bottom: none;
+        }
+
+        .modal-body .step-number {
+            background: var(--color-calm);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .modal-body .coping-statement {
+            background: linear-gradient(135deg, rgba(184, 216, 232, 0.15) 0%, rgba(168, 200, 216, 0.15) 100%);
+            border-left: 4px solid var(--color-calm);
+            padding: 24px 20px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 500;
+            text-align: center;
+            color: var(--color-text);
+            font-style: italic;
+            margin: 0 0 16px;
+        }
+
+        .modal-body .callout {
+            background: rgba(184, 216, 232, 0.1);
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 13px;
+            color: var(--color-text);
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 12px;
+            padding: 16px 24px;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            justify-content: flex-end;
+            position: sticky;
+            bottom: 0;
+            background: var(--color-surface);
+            border-radius: 0 0 20px 20px;
+        }
+
+        .modal-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            font-family: 'Fredoka', sans-serif;
+            transition: all 0.2s;
+        }
+
+        .modal-btn-primary {
+            background: linear-gradient(135deg, var(--color-calm) 0%, #A0C8D8 100%);
+            color: white;
+        }
+
+        .modal-btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(184, 216, 232, 0.4);
+        }
+
+        .modal-btn-secondary {
+            background: transparent;
+            color: var(--color-text-light);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-btn-secondary:hover {
+            background: rgba(0, 0, 0, 0.03);
+            color: var(--color-text);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--color-text);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            z-index: 2000;
+            opacity: 0;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
     </style>
 </head>
 <body>
@@ -391,49 +642,293 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true">
+        <div class="modal" id="modal">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modal-title"></h2>
+                <button class="modal-close" id="modal-close" aria-label="Close">×</button>
+            </div>
+            <div class="modal-body" id="modal-body"></div>
+            <div class="modal-footer" id="modal-footer"></div>
+        </div>
+    </div>
+
     <script>
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+        const modalFooter = document.getElementById('modal-footer');
+        const modalClose = document.getElementById('modal-close');
+
+        function openModal(config) {
+            modalTitle.innerHTML = config.title;
+            modalBody.innerHTML = config.body;
+            modalFooter.innerHTML = config.footer || '<button class="modal-btn modal-btn-primary" onclick="closeModal()">Done</button>';
+            modalOverlay.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            if (config.onOpen) config.onOpen();
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        modalClose.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        function saveEntry(toolId, data) {
+            const key = 'coping-' + toolId;
+            const entries = JSON.parse(localStorage.getItem(key) || '[]');
+            entries.push({ date: new Date().toISOString(), data });
+            localStorage.setItem(key, JSON.stringify(entries));
+            showToast('Saved 🌱');
+        }
+
+        function showToast(message) {
+            const existing = document.querySelector('.toast');
+            if (existing) existing.remove();
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            requestAnimationFrame(() => toast.classList.add('show'));
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 2000);
+        }
+
+        const instructionItem = (n, label, detail) => `
+            <li>
+                <span class="step-number">${n}</span>
+                <span><strong>${label}:</strong> ${detail}</span>
+            </li>
+        `;
+
         function startBreathing() {
-            alert('🫁 Breathing Exercise:\n\n1. Breathe in for 4 counts\n2. Hold for 4 counts\n3. Breathe out for 4 counts\n4. Hold for 4 counts\n\nRepeat 5-10 times');
+            openModal({
+                title: '🫁 Breathing Exercise',
+                body: `
+                    <p>Follow this calming 4-4-4-4 box breathing pattern to regulate your nervous system.</p>
+                    <ul class="instruction-list">
+                        ${instructionItem(1, 'Breathe in', 'through your nose for 4 counts')}
+                        ${instructionItem(2, 'Hold', 'your breath gently for 4 counts')}
+                        ${instructionItem(3, 'Breathe out', 'slowly through your mouth for 4 counts')}
+                        ${instructionItem(4, 'Hold empty', 'for 4 counts before the next cycle')}
+                    </ul>
+                    <p>Repeat 5-10 cycles. Notice how your body feels more relaxed with each breath.</p>
+                `
+            });
         }
 
         function start5Senses() {
-            alert('🌍 5 Senses Grounding:\n\n5 things I SEE:\n4 things I HEAR:\n3 things I FEEL:\n2 things I SMELL:\n1 thing I TASTE:');
+            openModal({
+                title: '🌍 5 Senses Grounding',
+                body: `
+                    <p>Look around and identify what you notice through each sense. This anchors you to the present moment.</p>
+                    <div class="form-group">
+                        <label class="form-label">5 things I can SEE 👀</label>
+                        <input type="text" class="form-input" id="sense-5" placeholder="Look around you...">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">4 things I can HEAR 👂</label>
+                        <input type="text" class="form-input" id="sense-4" placeholder="Listen closely...">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">3 things I can FEEL ✋</label>
+                        <input type="text" class="form-input" id="sense-3" placeholder="Notice textures and sensations...">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">2 things I can SMELL 👃</label>
+                        <input type="text" class="form-input" id="sense-2" placeholder="What scents are around you?">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">1 thing I can TASTE 👅</label>
+                        <input type="text" class="form-input" id="sense-1" placeholder="Or notice the taste in your mouth">
+                    </div>
+                `,
+                footer: `
+                    <button class="modal-btn modal-btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button class="modal-btn modal-btn-primary" onclick="save5Senses()">Save</button>
+                `
+            });
+        }
+
+        function save5Senses() {
+            const data = {
+                see: document.getElementById('sense-5').value,
+                hear: document.getElementById('sense-4').value,
+                feel: document.getElementById('sense-3').value,
+                smell: document.getElementById('sense-2').value,
+                taste: document.getElementById('sense-1').value
+            };
+            saveEntry('5-senses', data);
+            closeModal();
         }
 
         function startThoughtChallenging() {
-            alert('💭 Thought Challenging:\n\n1. Identify the thought\n2. Ask: Is this true?\n3. What evidence supports/opposes it?\n4. Develop a balanced thought\n5. Practice new thought');
+            openModal({
+                title: '💭 Thought Challenging',
+                body: `
+                    <p>Work through this process to reframe unhelpful thoughts with compassion and clarity.</p>
+                    <div class="form-group">
+                        <label class="form-label">1. The thought I'm having</label>
+                        <textarea class="form-textarea" id="thought-1" placeholder="Write the thought exactly as it appears..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">2. Evidence FOR this thought being true</label>
+                        <textarea class="form-textarea" id="thought-2" placeholder="What supports it?"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">3. Evidence AGAINST this thought</label>
+                        <textarea class="form-textarea" id="thought-3" placeholder="What contradicts it?"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">4. A more balanced thought</label>
+                        <textarea class="form-textarea" id="thought-4" placeholder="Reframe with kindness..."></textarea>
+                    </div>
+                `,
+                footer: `
+                    <button class="modal-btn modal-btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button class="modal-btn modal-btn-primary" onclick="saveThoughts()">Save</button>
+                `
+            });
+        }
+
+        function saveThoughts() {
+            const data = {
+                thought: document.getElementById('thought-1').value,
+                evidenceFor: document.getElementById('thought-2').value,
+                evidenceAgainst: document.getElementById('thought-3').value,
+                balanced: document.getElementById('thought-4').value
+            };
+            saveEntry('thoughts', data);
+            closeModal();
         }
 
         function startMuscleRelax() {
-            alert('🎯 Progressive Muscle Relaxation:\n\nTense and release muscle groups:\n- Face & jaw\n- Neck & shoulders\n- Arms & hands\n- Chest & stomach\n- Legs & feet');
+            openModal({
+                title: '🎯 Progressive Muscle Relaxation',
+                body: `
+                    <p>Tense each muscle group for 5 seconds, then release for 10. Notice the contrast between tension and relaxation.</p>
+                    <ul class="instruction-list">
+                        ${instructionItem(1, 'Face & Jaw', 'scrunch your face, hold, then release')}
+                        ${instructionItem(2, 'Neck & Shoulders', 'raise shoulders to ears, hold, then drop')}
+                        ${instructionItem(3, 'Arms & Hands', 'make tight fists, hold, then let go')}
+                        ${instructionItem(4, 'Chest & Stomach', 'breathe in deeply, hold, then exhale')}
+                        ${instructionItem(5, 'Legs & Feet', 'curl toes, tense thighs, hold, then release')}
+                    </ul>
+                    <div class="callout">Take your time. Move through each group slowly and intentionally. Breathe deeply throughout.</div>
+                `
+            });
         }
 
         function startWorryDump() {
-            alert('📝 Worry Dump:\n\nSpend 10 minutes writing everything that\'s worrying you without filtering. This helps externalize stress and gain perspective.');
+            openModal({
+                title: '📝 Worry Dump',
+                body: `
+                    <p>Externalize everything weighing on you. Don't filter, don't judge — just let it flow onto the page. Set a 10-minute timer and write freely.</p>
+                    <div class="form-group">
+                        <label class="form-label">What's on your mind?</label>
+                        <textarea class="form-textarea large" id="worry-text" placeholder="Let it all out..."></textarea>
+                    </div>
+                `,
+                footer: `
+                    <button class="modal-btn modal-btn-secondary" onclick="closeModal()">Discard</button>
+                    <button class="modal-btn modal-btn-primary" onclick="saveWorryDump()">Save</button>
+                `
+            });
         }
+
+        function saveWorryDump() {
+            saveEntry('worry-dump', { text: document.getElementById('worry-text').value });
+            closeModal();
+        }
+
+        const copingStatements = [
+            "I am strong enough to handle this.",
+            "This feeling is temporary and will pass.",
+            "I have overcome difficulties before.",
+            "I deserve kindness and compassion.",
+            "I am capable of finding solutions.",
+            "It's okay to ask for help.",
+            "I trust myself to get through this.",
+            "My feelings are valid.",
+            "I am doing the best I can.",
+            "This moment does not define me."
+        ];
 
         function startCopingStatements() {
-            const statements = [
-                "I am strong enough to handle this.",
-                "This feeling is temporary and will pass.",
-                "I have overcome difficulties before.",
-                "I deserve kindness and compassion.",
-                "I am capable of finding solutions."
-            ];
-            const random = statements[Math.floor(Math.random() * statements.length)];
-            alert('💪 Today\'s Coping Statement:\n\n"' + random + '"');
+            const random = copingStatements[Math.floor(Math.random() * copingStatements.length)];
+            openModal({
+                title: '💪 Coping Statement',
+                body: `
+                    <p>Read this slowly. Let it sink in. You can return to it whenever you need.</p>
+                    <div class="coping-statement">"${random}"</div>
+                    <p style="text-align: center; font-size: 13px;">Take a deep breath and remember: you are enough.</p>
+                `,
+                footer: `
+                    <button class="modal-btn modal-btn-secondary" onclick="startCopingStatements()">Another</button>
+                    <button class="modal-btn modal-btn-primary" onclick="closeModal()">Done</button>
+                `
+            });
         }
 
+        const quickTools = {
+            calm: {
+                title: '🧊 Ice Cube',
+                body: `
+                    <p>Hold an ice cube in your hand for 30-60 seconds. The sudden physical sensation activates your dive reflex, which calms your nervous system almost instantly.</p>
+                    <div class="callout"><strong>Tip:</strong> Focus on the cold, then the melting, then the warming. Notice the sensations changing.</div>
+                `
+            },
+            jump: {
+                title: '🏃 Jump Around',
+                body: `
+                    <p>Jump up and down for 1 minute. Let your body discharge the anxious energy physically.</p>
+                    <div class="callout"><strong>Tip:</strong> Put on an upbeat song and really go for it. Don't worry about looking silly.</div>
+                `
+            },
+            splash: {
+                title: '💧 Cold Splash',
+                body: `
+                    <p>Splash very cold water on your face 10-15 times. This activates the mammalian dive reflex, which slows your heart rate and triggers calm.</p>
+                    <div class="callout"><strong>Tip:</strong> The colder the water, the stronger the effect. If you can, fully submerge your face briefly.</div>
+                `
+            },
+            scream: {
+                title: '🗣️ Scream',
+                body: `
+                    <p>Go somewhere private — a bathroom, your car, a closet — and SCREAM as loud as you can.</p>
+                    <div class="callout"><strong>Tip:</strong> Scream into a pillow if you're worried about noise. Let it all out. Your body holds tension, and this releases it.</div>
+                `
+            },
+            stretch: {
+                title: '🤸 Stretch',
+                body: `
+                    <p>Stretch your body for 2-3 minutes. Reach high, bend low, twist side to side.</p>
+                    <div class="callout"><strong>Tip:</strong> Pay attention to areas where you hold tension — jaw, shoulders, lower back. Breathe into each stretch.</div>
+                `
+            },
+            music: {
+                title: '🎵 Music',
+                body: `
+                    <p>Listen to music intentionally. Choose something that matches what you need right now: upbeat to energize, calming to soothe, or emotional to process.</p>
+                    <div class="callout"><strong>Tip:</strong> Close your eyes and let yourself fully feel the music. Move with it if your body wants to.</div>
+                `
+            }
+        };
+
         function quickTool(type) {
-            const tools = {
-                calm: 'Hold an ice cube for 30-60 seconds. The physical shock resets your nervous system.',
-                jump: 'Jump around for 1 minute to discharge excess anxiety energy.',
-                splash: 'Splash cold water on your face. It activates your calm reflex.',
-                scream: 'Go somewhere private and scream as loud as you can. Release that pent-up emotion!',
-                stretch: 'Stretch for 2-3 minutes to release physical tension and reset.',
-                music: 'Listen to music that lifts your mood or helps you process emotions.'
-            };
-            alert('✨ ' + tools[type]);
+            const tool = quickTools[type];
+            if (tool) openModal({ title: tool.title, body: tool.body });
         }
     </script>
 </body>
