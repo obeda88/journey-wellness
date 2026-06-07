@@ -238,10 +238,122 @@ function createEntryCard(entry) {
 function viewEntry(entryId) {
   const entry = getEntryById(entryId);
   if (!entry) return;
+  openEntryDetail(entry);
+}
 
-  // Create modal or navigate to detail page
-  // For now, just alert
-  alert(`Entry from ${formatDate(entry.createdAt)}\n\n${entry.content.substring(0, 200)}...`);
+function getMoodInfo(moodId) {
+  if (typeof getAllMoodsWithAvatars === 'function') {
+    const allMoods = getAllMoodsWithAvatars();
+    const mood = allMoods.find(m => m.mood === moodId);
+    if (mood) return { emoji: mood.emoji, name: mood.name, color: mood.color };
+  }
+  return { emoji: '✨', name: moodId, color: '#FFFFFF' };
+}
+
+function openEntryDetail(entry) {
+  const moodInfo = getMoodInfo(entry.mood);
+
+  const avatarEl = document.getElementById('entry-detail-avatar');
+  if (avatarEl) {
+    avatarEl.textContent = moodInfo.emoji;
+    avatarEl.style.backgroundColor = moodInfo.color;
+  }
+
+  const dateEl = document.getElementById('entry-detail-date');
+  if (dateEl) dateEl.textContent = formatDate(entry.createdAt);
+
+  const timeEl = document.getElementById('entry-detail-time');
+  if (timeEl) timeEl.textContent = formatTime(entry.createdAt);
+
+  const promptSection = document.getElementById('entry-detail-prompt-section');
+  const promptEl = document.getElementById('entry-detail-prompt');
+  if (promptSection && promptEl) {
+    if (entry.prompt) {
+      promptEl.textContent = entry.prompt;
+      promptSection.style.display = 'block';
+    } else {
+      promptSection.style.display = 'none';
+    }
+  }
+
+  const contentEl = document.getElementById('entry-detail-content');
+  if (contentEl) contentEl.textContent = entry.content;
+
+  const photosEl = document.getElementById('entry-detail-photos');
+  if (photosEl) {
+    photosEl.innerHTML = '';
+    if (entry.photos && entry.photos.length > 0) {
+      entry.photos.forEach(photo => {
+        const img = document.createElement('img');
+        img.src = photo.data;
+        img.alt = 'Entry photo';
+        photosEl.appendChild(img);
+      });
+      photosEl.style.display = 'grid';
+    } else {
+      photosEl.style.display = 'none';
+    }
+  }
+
+  const tagsEl = document.getElementById('entry-detail-tags');
+  if (tagsEl) {
+    tagsEl.innerHTML = '';
+    if (entry.tags && entry.tags.length > 0) {
+      entry.tags.forEach(tag => {
+        const tagEl = document.createElement('div');
+        tagEl.className = 'entry-detail-tag';
+        tagEl.textContent = '#' + tag;
+        tagsEl.appendChild(tagEl);
+      });
+      tagsEl.style.display = 'flex';
+    } else {
+      tagsEl.style.display = 'none';
+    }
+  }
+
+  const moodEl = document.getElementById('entry-detail-mood');
+  if (moodEl) moodEl.textContent = moodInfo.emoji + ' ' + moodInfo.name;
+
+  const categoryEl = document.getElementById('entry-detail-category');
+  if (categoryEl) {
+    const categoryLabel = entry.category
+      ? entry.category.charAt(0).toUpperCase() + entry.category.slice(1)
+      : 'Uncategorized';
+    categoryEl.textContent = '📂 ' + categoryLabel;
+  }
+
+  const favBtn = document.getElementById('entry-detail-favorite');
+  if (favBtn) {
+    const applyFavState = (isFav) => {
+      if (isFav) {
+        favBtn.classList.add('is-favorite');
+        favBtn.textContent = '❤️ Favorited';
+      } else {
+        favBtn.classList.remove('is-favorite');
+        favBtn.textContent = '🤍 Favorite';
+      }
+    };
+    applyFavState(entry.isFavorite);
+    favBtn.onclick = () => {
+      toggleFavorite(entry.id);
+      const updated = getEntryById(entry.id);
+      applyFavState(updated && updated.isFavorite);
+    };
+  }
+
+  const overlay = document.getElementById('entry-detail-overlay');
+  if (overlay) {
+    overlay.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeEntryDetail() {
+  const overlay = document.getElementById('entry-detail-overlay');
+  if (overlay) {
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+  }
 }
 
 // Toggle favorite
@@ -297,6 +409,22 @@ document.addEventListener('DOMContentLoaded', function() {
       renderFeed();
     });
   }
+
+  const overlay = document.getElementById('entry-detail-overlay');
+  const closeBtn = document.getElementById('entry-detail-close');
+  const closeBtnFooter = document.getElementById('entry-detail-close-btn');
+  if (closeBtn) closeBtn.addEventListener('click', closeEntryDetail);
+  if (closeBtnFooter) closeBtnFooter.addEventListener('click', closeEntryDetail);
+  if (overlay) {
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) closeEntryDetail();
+    });
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay && overlay.classList.contains('show')) {
+      closeEntryDetail();
+    }
+  });
 });
 
 // Add animations to CSS

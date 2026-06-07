@@ -454,6 +454,247 @@
                 align-items: flex-start;
             }
         }
+
+        /* ENTRY DETAIL MODAL */
+        .entry-detail-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(61, 61, 61, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .entry-detail-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .entry-detail-modal {
+            background: var(--color-surface);
+            border-radius: 24px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .entry-detail-overlay.show .entry-detail-modal {
+            transform: translateY(0);
+        }
+
+        .entry-detail-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            background: var(--color-surface);
+            border-radius: 24px 24px 0 0;
+            z-index: 1;
+        }
+
+        .entry-detail-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+
+        .entry-detail-meta {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .entry-detail-date {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text);
+            margin: 0;
+        }
+
+        .entry-detail-time {
+            font-size: 13px;
+            color: var(--color-text-light);
+            margin: 2px 0 0 0;
+        }
+
+        .entry-detail-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            line-height: 1;
+            cursor: pointer;
+            color: var(--color-text-light);
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .entry-detail-close:hover {
+            background: rgba(0, 0, 0, 0.05);
+            color: var(--color-text);
+        }
+
+        .entry-detail-body {
+            padding: 24px;
+        }
+
+        .entry-detail-prompt {
+            background: linear-gradient(135deg, rgba(255, 209, 102, 0.1) 0%, rgba(255, 182, 77, 0.1) 100%);
+            border-left: 4px solid var(--color-secondary);
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+        }
+
+        .entry-detail-prompt-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--color-text-light);
+            margin: 0 0 4px 0;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .entry-detail-prompt-text {
+            font-size: 14px;
+            color: var(--color-text);
+            font-style: italic;
+            margin: 0;
+        }
+
+        .entry-detail-content {
+            font-size: 15px;
+            color: var(--color-text);
+            line-height: 1.7;
+            white-space: pre-wrap;
+            margin-bottom: 20px;
+            word-wrap: break-word;
+        }
+
+        .entry-detail-photos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .entry-detail-photos img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .entry-detail-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .entry-detail-tag {
+            background: linear-gradient(135deg, rgba(168, 216, 168, 0.15) 0%, rgba(200, 230, 201, 0.15) 100%);
+            color: #388E3C;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            border: 1px solid rgba(168, 216, 168, 0.3);
+        }
+
+        .entry-detail-info {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .entry-detail-mood {
+            background: var(--color-bg);
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: var(--color-text);
+            font-weight: 500;
+        }
+
+        .entry-detail-category {
+            background: #000;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .entry-detail-footer {
+            display: flex;
+            gap: 12px;
+            padding: 16px 24px;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            justify-content: space-between;
+            position: sticky;
+            bottom: 0;
+            background: var(--color-surface);
+            border-radius: 0 0 24px 24px;
+        }
+
+        .entry-detail-favorite,
+        .entry-detail-close-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .entry-detail-favorite {
+            background: transparent;
+            color: var(--color-text);
+            border: 1px solid var(--color-text-light);
+        }
+
+        .entry-detail-favorite:hover {
+            background: rgba(255, 182, 77, 0.1);
+        }
+
+        .entry-detail-favorite.is-favorite {
+            color: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+
+        .entry-detail-close-btn {
+            background: linear-gradient(135deg, #FFB74D 0%, #FFD166 100%);
+            color: white;
+        }
+
+        .entry-detail-close-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(255, 182, 77, 0.4);
+        }
     </style>
 </head>
 <body>
@@ -539,5 +780,36 @@
             }
         });
     </script>
+
+    <!-- Entry Detail Modal -->
+    <div class="entry-detail-overlay" id="entry-detail-overlay" role="dialog" aria-modal="true">
+        <div class="entry-detail-modal">
+            <div class="entry-detail-header">
+                <div class="entry-detail-avatar" id="entry-detail-avatar">🦉</div>
+                <div class="entry-detail-meta">
+                    <h2 class="entry-detail-date" id="entry-detail-date"></h2>
+                    <p class="entry-detail-time" id="entry-detail-time"></p>
+                </div>
+                <button type="button" class="entry-detail-close" id="entry-detail-close" aria-label="Close">×</button>
+            </div>
+            <div class="entry-detail-body">
+                <div class="entry-detail-prompt" id="entry-detail-prompt-section" style="display: none;">
+                    <p class="entry-detail-prompt-label">Today's Prompt</p>
+                    <p class="entry-detail-prompt-text" id="entry-detail-prompt"></p>
+                </div>
+                <div class="entry-detail-content" id="entry-detail-content"></div>
+                <div class="entry-detail-photos" id="entry-detail-photos" style="display: none;"></div>
+                <div class="entry-detail-tags" id="entry-detail-tags" style="display: none;"></div>
+                <div class="entry-detail-info">
+                    <div class="entry-detail-mood" id="entry-detail-mood"></div>
+                    <div class="entry-detail-category" id="entry-detail-category"></div>
+                </div>
+            </div>
+            <div class="entry-detail-footer">
+                <button type="button" class="entry-detail-favorite" id="entry-detail-favorite">🤍 Favorite</button>
+                <button type="button" class="entry-detail-close-btn" id="entry-detail-close-btn">Close</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

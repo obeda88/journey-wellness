@@ -3,56 +3,56 @@
 // Avatar to mood mapping
 const AVATAR_SYSTEM = {
   owl: {
-    name: 'Owl',
+    name: 'Peaceful',
     emoji: '🦉',
     mood: 'peaceful',
     color: '#A8D8A8',
     traits: ['wise', 'calm', 'observant']
   },
   fox: {
-    name: 'Fox',
+    name: 'Happy',
     emoji: '🦊',
     mood: 'happy',
     color: '#FFD166',
     traits: ['clever', 'playful', 'cheerful']
   },
   squirrel: {
-    name: 'Squirrel',
+    name: 'Excited',
     emoji: '🐿️',
     mood: 'excited',
     color: '#FFB74D',
     traits: ['bouncy', 'energetic', 'curious']
   },
   cat: {
-    name: 'Cat',
+    name: 'Frustrated',
     emoji: '🐱',
     mood: 'frustrated',
     color: '#FF6B6B',
     traits: ['independent', 'expressive', 'feisty']
   },
   sloth: {
-    name: 'Sloth',
+    name: 'Tired',
     emoji: '🦥',
     mood: 'tired',
     color: '#D9A5D9',
     traits: ['cozy', 'slow', 'peaceful']
   },
   duck: {
-    name: 'Duck',
+    name: 'Loved',
     emoji: '🦆',
     mood: 'loved',
     color: '#C8E6C9',
     traits: ['warm', 'gentle', 'connected']
   },
   lamb: {
-    name: 'Lamb',
+    name: 'Sad',
     emoji: '🐑',
     mood: 'sad',
     color: '#B8B8D8',
     traits: ['gentle', 'tender', 'vulnerable']
   },
   butterfly: {
-    name: 'Butterfly',
+    name: 'Grateful',
     emoji: '🦋',
     mood: 'grateful',
     color: '#FFE5B4',

@@ -369,32 +369,58 @@
     <script src="data/moods.js"></script>
     <script src="js/storage.js"></script>
     <script>
-        const moodEmojis = {
-            peaceful: '🦉',
-            happy: '🦊',
-            excited: '🐿️',
-            frustrated: '🐱',
-            tired: '🦥',
-            loved: '🦆',
-            sad: '🐑',
-            grateful: '🦋'
-        };
+        const CUSTOM_AVATARS_KEY = 'journey-custom-avatars';
+
+        function getCustomAvatars() {
+            try {
+                return JSON.parse(localStorage.getItem(CUSTOM_AVATARS_KEY) || '[]');
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function getMoodMap() {
+            const map = {};
+            if (window.moodsData && window.moodsData.moods) {
+                window.moodsData.moods.forEach(mood => {
+                    map[mood.id] = { emoji: mood.emoji, name: mood.name, color: mood.color };
+                });
+            }
+            getCustomAvatars().forEach(avatar => {
+                map[avatar.id] = { emoji: avatar.emoji, name: avatar.name, color: avatar.color };
+            });
+            return map;
+        }
+
+        function renderLegend() {
+            const legendGrid = document.querySelector('.legend-grid');
+            if (!legendGrid) return;
+            const moodMap = getMoodMap();
+            legendGrid.innerHTML = '';
+            Object.entries(moodMap).forEach(([id, mood]) => {
+                const item = document.createElement('div');
+                item.className = 'legend-item';
+                item.innerHTML = `
+                    <div class="legend-emoji">${mood.emoji}</div>
+                    <div>${mood.name}</div>
+                `;
+                legendGrid.appendChild(item);
+            });
+        }
 
         let currentDate = new Date();
 
         function renderCalendar() {
             const year = currentDate.getFullYear();
             const month = currentDate.getMonth();
+            const moodMap = getMoodMap();
 
-            // Update month display
             document.getElementById('current-month').textContent = 
                 currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 
-            // Get first day of month and number of days
             const firstDay = new Date(year, month, 1).getDay();
             const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-            // Get entries
             const entries = JSON.parse(localStorage.getItem('journey_entries') || '[]');
             const entriesByDate = {};
             entries.forEach(entry => {
@@ -402,11 +428,9 @@
                 entriesByDate[date] = entry;
             });
 
-            // Create calendar grid
             const calendar = document.getElementById('calendar');
             calendar.innerHTML = '';
 
-            // Add day headers
             const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
             dayHeaders.forEach(day => {
                 const header = document.createElement('div');
@@ -415,14 +439,12 @@
                 calendar.appendChild(header);
             });
 
-            // Add empty cells before first day
             for (let i = 0; i < firstDay; i++) {
                 const empty = document.createElement('div');
                 empty.className = 'calendar-day';
                 calendar.appendChild(empty);
             }
 
-            // Add days
             for (let day = 1; day <= daysInMonth; day++) {
                 const dayDate = new Date(year, month, day);
                 const dayString = dayDate.toDateString();
@@ -437,7 +459,10 @@
                 dayCell.appendChild(dayNum);
 
                 if (entry) {
-                    const emoji = moodEmojis[entry.mood] || '📔';
+                    const moodData = moodMap[entry.mood];
+                    const emoji = moodData ? moodData.emoji : '📔';
+                    const moodName = moodData ? moodData.name : 'Unknown';
+
                     const emojiEl = document.createElement('div');
                     emojiEl.className = 'day-emoji';
                     emojiEl.textContent = emoji;
@@ -445,7 +470,7 @@
 
                     const tooltip = document.createElement('div');
                     tooltip.className = 'day-tooltip';
-                    tooltip.textContent = entry.mood + ' - ' + (entry.content.substring(0, 20) + '...');
+                    tooltip.textContent = moodName + ' - ' + (entry.content.substring(0, 20) + '...');
                     dayCell.appendChild(tooltip);
 
                     dayCell.style.cursor = 'pointer';
@@ -467,8 +492,8 @@
             const entries = JSON.parse(localStorage.getItem('journey_entries') || '[]');
             const year = currentDate.getFullYear();
             const month = currentDate.getMonth();
+            const moodMap = getMoodMap();
 
-            // Count entries this month
             const thisMonthEntries = entries.filter(e => {
                 const d = new Date(e.createdAt);
                 return d.getFullYear() === year && d.getMonth() === month;
@@ -476,16 +501,15 @@
 
             document.getElementById('entries-this-month').textContent = thisMonthEntries.length;
 
-            // Most common mood
             const moodCounts = {};
             thisMonthEntries.forEach(e => {
                 moodCounts[e.mood] = (moodCounts[e.mood] || 0) + 1;
             });
             const mostCommon = Object.keys(moodCounts).reduce((a, b) => 
                 moodCounts[a] > moodCounts[b] ? a : b, 'none');
-            document.getElementById('most-common-mood').textContent = moodEmojis[mostCommon] || '—';
+            const mostCommonData = moodMap[mostCommon];
+            document.getElementById('most-common-mood').textContent = mostCommonData ? mostCommonData.emoji : '—';
 
-            // Consistency (entries on unique days / days in month)
             const daysInMonth = new Date(year, month + 1, 0).getDate();
             const uniqueDays = new Set(thisMonthEntries.map(e => new Date(e.createdAt).getDate()));
             const consistency = Math.round((uniqueDays.size / daysInMonth) * 100);
@@ -503,12 +527,14 @@
         }
 
         function viewEntry(entryId) {
-            // Navigate to or show entry
             sessionStorage.setItem('viewEntryId', entryId);
             window.location.href = 'journal-feed.html';
         }
 
-        document.addEventListener('DOMContentLoaded', renderCalendar);
+        document.addEventListener('DOMContentLoaded', () => {
+            renderLegend();
+            renderCalendar();
+        });
     </script>
 </body>
 </html>
