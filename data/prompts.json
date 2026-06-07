@@ -1,0 +1,124 @@
+{
+  "prompts": [
+    {
+      "id": 1,
+      "text": "How are you feeling today? Describe your emotions in detail."
+    },
+    {
+      "id": 2,
+      "text": "What are three things you're grateful for right now?"
+    },
+    {
+      "id": 3,
+      "text": "What made you smile or feel joyful today?"
+    },
+    {
+      "id": 4,
+      "text": "Describe your ideal day from start to finish."
+    },
+    {
+      "id": 5,
+      "text": "What's one thing you're worried about? How can you let it go?"
+    },
+    {
+      "id": 6,
+      "text": "Who in your life makes you feel loved and supported?"
+    },
+    {
+      "id": 7,
+      "text": "What does self-care look like for you today?"
+    },
+    {
+      "id": 8,
+      "text": "What's a challenge you faced today? How did you handle it?"
+    },
+    {
+      "id": 9,
+      "text": "Describe a moment of peace or calm you experienced today."
+    },
+    {
+      "id": 10,
+      "text": "What are your hopes for tomorrow?"
+    },
+    {
+      "id": 11,
+      "text": "Write about a memory that brings you comfort."
+    },
+    {
+      "id": 12,
+      "text": "What's one kind thing you did for yourself today?"
+    },
+    {
+      "id": 13,
+      "text": "How have you grown or changed in the past week?"
+    },
+    {
+      "id": 14,
+      "text": "What does your perfect evening look like?"
+    },
+    {
+      "id": 15,
+      "text": "Describe something beautiful you noticed today."
+    },
+    {
+      "id": 16,
+      "text": "What's a dream or goal you're working towards?"
+    },
+    {
+      "id": 17,
+      "text": "How can you be more gentle with yourself?"
+    },
+    {
+      "id": 18,
+      "text": "What does love mean to you?"
+    },
+    {
+      "id": 19,
+      "text": "Write about a person who inspires you and why."
+    },
+    {
+      "id": 20,
+      "text": "What's something you learned about yourself recently?"
+    },
+    {
+      "id": 21,
+      "text": "Describe the weather today and how it made you feel."
+    },
+    {
+      "id": 22,
+      "text": "What's one thing you want to let go of?"
+    },
+    {
+      "id": 23,
+      "text": "Write about a small victory or accomplishment today."
+    },
+    {
+      "id": 24,
+      "text": "What brings you peace when you're feeling overwhelmed?"
+    },
+    {
+      "id": 25,
+      "text": "Describe a conversation that moved or inspired you."
+    },
+    {
+      "id": 26,
+      "text": "What does healing look like for you?"
+    },
+    {
+      "id": 27,
+      "text": "Write about a song, book, or movie that resonates with you right now."
+    },
+    {
+      "id": 28,
+      "text": "What's something you're looking forward to?"
+    },
+    {
+      "id": 29,
+      "text": "How are you taking care of your mental health?"
+    },
+    {
+      "id": 30,
+      "text": "Write a letter to your future self a year from now."
+    }
+  ]
+}

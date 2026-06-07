@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Calendar - Journey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #FFD166;
+            --color-secondary: #FFB74D;
+            --color-bg: #FFF9F0;
+            --color-surface: #FFFFFF;
+            --color-text: #3D3D3D;
+            --color-text-light: #8B7355;
+        }
+
+        body {
+            background: linear-gradient(135deg, #FFF9F0 0%, #FFE5D9 100%);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            color: var(--color-text);
+        }
+
+        .header {
+            background: var(--color-surface);
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-4px);
+        }
+
+        .header-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-text);
+        }
+
+        .month-nav {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .month-btn {
+            background: linear-gradient(135deg, rgba(255, 209, 102, 0.1) 0%, rgba(255, 182, 77, 0.1) 100%);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .month-btn:hover {
+            background: linear-gradient(135deg, rgba(255, 182, 77, 0.2) 0%, rgba(255, 166, 51, 0.2) 100%);
+        }
+
+        .current-month {
+            font-weight: 600;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        /* CALENDAR */
+        .calendar {
+            background: var(--color-surface);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .day-header {
+            text-align: center;
+            font-weight: 700;
+            font-size: 12px;
+            color: var(--color-text-light);
+            padding: 12px 0;
+            text-transform: uppercase;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(255, 209, 102, 0.05) 0%, rgba(255, 182, 77, 0.05) 100%);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            padding: 4px;
+            position: relative;
+        }
+
+        .calendar-day:hover {
+            border-color: var(--color-secondary);
+            transform: scale(1.05);
+        }
+
+        .calendar-day.has-entry {
+            background: linear-gradient(135deg, rgba(255, 209, 102, 0.15) 0%, rgba(255, 182, 77, 0.15) 100%);
+        }
+
+        .day-number {
+            font-size: 10px;
+            color: var(--color-text-light);
+            position: absolute;
+            top: 2px;
+            right: 4px;
+        }
+
+        .day-emoji {
+            font-size: 28px;
+            line-height: 1;
+        }
+
+        .day-empty {
+            font-size: 20px;
+            color: var(--color-text-light);
+            opacity: 0.3;
+        }
+
+        .day-tooltip {
+            position: absolute;
+            bottom: -30px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            z-index: 10;
+        }
+
+        .calendar-day:hover .day-tooltip {
+            opacity: 1;
+        }
+
+        /* MOOD LEGEND */
+        .legend {
+            background: var(--color-surface);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+        }
+
+        .legend-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--color-text);
+        }
+
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px;
+            background: linear-gradient(135deg, rgba(255, 209, 102, 0.1) 0%, rgba(255, 182, 77, 0.1) 100%);
+            border-radius: 12px;
+            font-size: 14px;
+        }
+
+        .legend-emoji {
+            font-size: 28px;
+        }
+
+        /* STATS */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: var(--color-surface);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid rgba(255, 182, 77, 0.1);
+            text-align: center;
+        }
+
+        .stat-emoji {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            font-family: 'Fredoka', sans-serif;
+            color: var(--color-secondary);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--color-text-light);
+            margin-top: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .calendar-grid {
+                gap: 4px;
+            }
+
+            .day-emoji {
+                font-size: 20px;
+            }
+
+            .legend-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .header-content {
+                flex-direction: column;
+            }
+
+            .month-nav {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <div class="header-left">
+                <button class="back-btn" onclick="window.location.href='journey-dashboard.html'">←</button>
+                <h1 class="header-title">📅 Mood Calendar</h1>
+            </div>
+            <div class="month-nav">
+                <button class="month-btn" onclick="previousMonth()">← Previous</button>
+                <span class="current-month" id="current-month"></span>
+                <button class="month-btn" onclick="nextMonth()">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-emoji">📔</div>
+                <div class="stat-number" id="entries-this-month">0</div>
+                <div class="stat-label">Entries This Month</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-emoji">😊</div>
+                <div class="stat-number" id="most-common-mood">—</div>
+                <div class="stat-label">Most Common Mood</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-emoji">📊</div>
+                <div class="stat-number" id="consistency">0%</div>
+                <div class="stat-label">Monthly Consistency</div>
+            </div>
+        </div>
+
+        <!-- Calendar -->
+        <div class="calendar">
+            <div class="calendar-grid" id="calendar"></div>
+        </div>
+
+        <!-- Legend -->
+        <div class="legend">
+            <h3 class="legend-title">Mood Avatars</h3>
+            <div class="legend-grid">
+                <div class="legend-item">
+                    <div class="legend-emoji">🦉</div>
+                    <div>Peaceful</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-emoji">🦊</div>
+                    <div>Happy</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-emoji">🐿️</div>
+                    <div>Excited</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-emoji">🐱</div>
+                    <div>Frustrated</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-emoji">🦥</div>
+                    <div>Tired</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-emoji">🦆</div>
+                    <div>Loved</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-emoji">🐑</div>
+                    <div>Sad</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-emoji">🦋</div>
+                    <div>Grateful</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data/moods.js"></script>
+    <script src="js/storage.js"></script>
+    <script>
+        const moodEmojis = {
+            peaceful: '🦉',
+            happy: '🦊',
+            excited: '🐿️',
+            frustrated: '🐱',
+            tired: '🦥',
+            loved: '🦆',
+            sad: '🐑',
+            grateful: '🦋'
+        };
+
+        let currentDate = new Date();
+
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+
+            // Update month display
+            document.getElementById('current-month').textContent = 
+                currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+            // Get first day of month and number of days
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            // Get entries
+            const entries = JSON.parse(localStorage.getItem('journey_entries') || '[]');
+            const entriesByDate = {};
+            entries.forEach(entry => {
+                const date = new Date(entry.createdAt).toDateString();
+                entriesByDate[date] = entry;
+            });
+
+            // Create calendar grid
+            const calendar = document.getElementById('calendar');
+            calendar.innerHTML = '';
+
+            // Add day headers
+            const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            dayHeaders.forEach(day => {
+                const header = document.createElement('div');
+                header.className = 'day-header';
+                header.textContent = day;
+                calendar.appendChild(header);
+            });
+
+            // Add empty cells before first day
+            for (let i = 0; i < firstDay; i++) {
+                const empty = document.createElement('div');
+                empty.className = 'calendar-day';
+                calendar.appendChild(empty);
+            }
+
+            // Add days
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayDate = new Date(year, month, day);
+                const dayString = dayDate.toDateString();
+                const entry = entriesByDate[dayString];
+
+                const dayCell = document.createElement('div');
+                dayCell.className = 'calendar-day' + (entry ? ' has-entry' : '');
+
+                const dayNum = document.createElement('div');
+                dayNum.className = 'day-number';
+                dayNum.textContent = day;
+                dayCell.appendChild(dayNum);
+
+                if (entry) {
+                    const emoji = moodEmojis[entry.mood] || '📔';
+                    const emojiEl = document.createElement('div');
+                    emojiEl.className = 'day-emoji';
+                    emojiEl.textContent = emoji;
+                    dayCell.appendChild(emojiEl);
+
+                    const tooltip = document.createElement('div');
+                    tooltip.className = 'day-tooltip';
+                    tooltip.textContent = entry.mood + ' - ' + (entry.content.substring(0, 20) + '...');
+                    dayCell.appendChild(tooltip);
+
+                    dayCell.style.cursor = 'pointer';
+                    dayCell.onclick = () => viewEntry(entry.id);
+                } else {
+                    const empty = document.createElement('div');
+                    empty.className = 'day-empty';
+                    empty.textContent = '○';
+                    dayCell.appendChild(empty);
+                }
+
+                calendar.appendChild(dayCell);
+            }
+
+            updateStats();
+        }
+
+        function updateStats() {
+            const entries = JSON.parse(localStorage.getItem('journey_entries') || '[]');
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+
+            // Count entries this month
+            const thisMonthEntries = entries.filter(e => {
+                const d = new Date(e.createdAt);
+                return d.getFullYear() === year && d.getMonth() === month;
+            });
+
+            document.getElementById('entries-this-month').textContent = thisMonthEntries.length;
+
+            // Most common mood
+            const moodCounts = {};
+            thisMonthEntries.forEach(e => {
+                moodCounts[e.mood] = (moodCounts[e.mood] || 0) + 1;
+            });
+            const mostCommon = Object.keys(moodCounts).reduce((a, b) => 
+                moodCounts[a] > moodCounts[b] ? a : b, 'none');
+            document.getElementById('most-common-mood').textContent = moodEmojis[mostCommon] || '—';
+
+            // Consistency (entries on unique days / days in month)
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const uniqueDays = new Set(thisMonthEntries.map(e => new Date(e.createdAt).getDate()));
+            const consistency = Math.round((uniqueDays.size / daysInMonth) * 100);
+            document.getElementById('consistency').textContent = consistency + '%';
+        }
+
+        function previousMonth() {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        }
+
+        function nextMonth() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        }
+
+        function viewEntry(entryId) {
+            // Navigate to or show entry
+            sessionStorage.setItem('viewEntryId', entryId);
+            window.location.href = 'journal-feed.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', renderCalendar);
+    </script>
+</body>
+</html>

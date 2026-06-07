@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coping Space - Journey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #FFD166;
+            --color-secondary: #FFB74D;
+            --color-bg: #FFF9F0;
+            --color-surface: #FFFFFF;
+            --color-text: #3D3D3D;
+            --color-text-light: #8B7355;
+            --color-calm: #B8D8E8;
+            --color-support: #FFB3BA;
+        }
+
+        body {
+            background: linear-gradient(135deg, #FFF9F0 0%, #FFE5D9 100%);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            color: var(--color-text);
+        }
+
+        .header {
+            background: var(--color-surface);
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-4px);
+        }
+
+        .header-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-text);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        .intro-section {
+            background: var(--color-surface);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            border-left: 4px solid var(--color-calm);
+        }
+
+        .intro-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--color-text);
+        }
+
+        .intro-text {
+            font-size: 14px;
+            color: var(--color-text-light);
+            line-height: 1.6;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .tool-card {
+            background: var(--color-surface);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 182, 77, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        .tool-emoji {
+            font-size: 48px;
+            text-align: center;
+        }
+
+        .tool-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text);
+        }
+
+        .tool-description {
+            font-size: 13px;
+            color: var(--color-text-light);
+            line-height: 1.5;
+        }
+
+        .tool-button {
+            margin-top: auto;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, var(--color-calm) 0%, #A0C8D8 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: 'Fredoka', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .tool-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(184, 216, 232, 0.3);
+        }
+
+        /* COPING PATHWAYS */
+        .pathways-section {
+            background: var(--color-surface);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+        }
+
+        .pathways-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--color-text);
+        }
+
+        .pathways-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .pathway {
+            background: linear-gradient(135deg, rgba(184, 216, 232, 0.1) 0%, rgba(168, 200, 216, 0.1) 100%);
+            border: 2px solid rgba(184, 216, 232, 0.3);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .pathway-title {
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: var(--color-text);
+        }
+
+        .pathway-description {
+            font-size: 13px;
+            color: var(--color-text-light);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .pathway-list {
+            list-style: none;
+            font-size: 13px;
+        }
+
+        .pathway-list li {
+            padding: 6px 0;
+            color: var(--color-text);
+        }
+
+        .pathway-list li::before {
+            content: '→ ';
+            color: var(--color-calm);
+            font-weight: 700;
+            margin-right: 6px;
+        }
+
+        /* QUICK TOOLS */
+        .quick-tools {
+            background: var(--color-surface);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .quick-tools-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--color-text);
+        }
+
+        .quick-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+        }
+
+        .quick-btn {
+            padding: 14px 16px;
+            background: linear-gradient(135deg, rgba(255, 179, 186, 0.15) 0%, rgba(255, 160, 170, 0.15) 100%);
+            border: 2px solid rgba(255, 179, 186, 0.3);
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            font-family: 'Fredoka', sans-serif;
+            color: var(--color-text);
+        }
+
+        .quick-btn:hover {
+            background: linear-gradient(135deg, rgba(255, 179, 186, 0.25) 0%, rgba(255, 160, 170, 0.25) 100%);
+            border-color: rgba(255, 179, 186, 0.5);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .tools-grid,
+            .pathways-grid,
+            .quick-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .tool-emoji {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <button class="back-btn" onclick="window.location.href='journey-dashboard.html'">←</button>
+            <h1 class="header-title">🤍 Coping Tools</h1>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Intro -->
+        <div class="intro-section">
+            <h2 class="intro-title">You're Not Alone 🤍</h2>
+            <p class="intro-text">
+                When difficult emotions arise, these tools can help you regulate, ground yourself, and find relief. 
+                Remember: it's okay to not be okay, and seeking support is a sign of strength.
+            </p>
+        </div>
+
+        <!-- Coping Tools Grid -->
+        <div class="tools-grid">
+            <div class="tool-card">
+                <div class="tool-emoji">🫁</div>
+                <div class="tool-title">Breathing Exercise</div>
+                <div class="tool-description">Guided breathing techniques to calm your nervous system and reduce anxiety.</div>
+                <button class="tool-button" onclick="startBreathing()">Start Exercise</button>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-emoji">🌍</div>
+                <div class="tool-title">5 Senses Grounding</div>
+                <div class="tool-description">Identify 5 things you see, 4 you hear, 3 you feel, 2 you smell, 1 you taste.</div>
+                <button class="tool-button" onclick="start5Senses()">Begin Grounding</button>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-emoji">💭</div>
+                <div class="tool-title">Thought Challenging</div>
+                <div class="tool-description">Learn to identify and reframe unhelpful thought patterns.</div>
+                <button class="tool-button" onclick="startThoughtChallenging()">Challenge Thoughts</button>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-emoji">🎯</div>
+                <div class="tool-title">Progressive Muscle Relax</div>
+                <div class="tool-description">Reduce physical tension by progressively relaxing muscle groups.</div>
+                <button class="tool-button" onclick="startMuscleRelax()">Begin Relaxation</button>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-emoji">📝</div>
+                <div class="tool-title">Worry Dump</div>
+                <div class="tool-description">Write down everything worrying you to get it out of your head.</div>
+                <button class="tool-button" onclick="startWorryDump()">Start Writing</button>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-emoji">💪</div>
+                <div class="tool-title">Coping Statements</div>
+                <div class="tool-description">Personalized affirmations to remind yourself of your strength and resilience.</div>
+                <button class="tool-button" onclick="startCopingStatements()">Read Statements</button>
+            </div>
+        </div>
+
+        <!-- Coping Pathways -->
+        <div class="pathways-section">
+            <h2 class="pathways-title">🛤️ Coping Pathways</h2>
+            <div class="pathways-grid">
+                <div class="pathway">
+                    <div class="pathway-title">Sit With The Feeling</div>
+                    <div class="pathway-description">For when you want to process and understand your emotions:</div>
+                    <ul class="pathway-list">
+                        <li>Acknowledge the feeling</li>
+                        <li>Notice where you feel it</li>
+                        <li>Journal about it</li>
+                        <li>Practice self-compassion</li>
+                        <li>Breathe through it</li>
+                    </ul>
+                </div>
+
+                <div class="pathway">
+                    <div class="pathway-title">Distract & Reset</div>
+                    <div class="pathway-description">For when you need to step away and reset:</div>
+                    <ul class="pathway-list">
+                        <li>Engage in an activity</li>
+                        <li>Take a walk outside</li>
+                        <li>Chat with someone</li>
+                        <li>Practice a hobby</li>
+                        <li>Come back refreshed</li>
+                    </ul>
+                </div>
+
+                <div class="pathway">
+                    <div class="pathway-title">Seek Support</div>
+                    <div class="pathway-description">For when you need help beyond self-care:</div>
+                    <ul class="pathway-list">
+                        <li>Reach out to a friend</li>
+                        <li>Call a loved one</li>
+                        <li>Join support community</li>
+                        <li>Contact a professional</li>
+                        <li>Crisis resources available</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick SOS Tools -->
+        <div class="quick-tools">
+            <h2 class="quick-tools-title">🆘 Quick SOS Tools</h2>
+            <div class="quick-buttons">
+                <button class="quick-btn" onclick="quickTool('calm')">🧊 Ice Cube</button>
+                <button class="quick-btn" onclick="quickTool('jump')">🏃 Jump Around</button>
+                <button class="quick-btn" onclick="quickTool('splash')">💧 Cold Splash</button>
+                <button class="quick-btn" onclick="quickTool('scream')">🗣️ Scream</button>
+                <button class="quick-btn" onclick="quickTool('stretch')">🤸 Stretch</button>
+                <button class="quick-btn" onclick="quickTool('music')">🎵 Music</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function startBreathing() {
+            alert('🫁 Breathing Exercise:\n\n1. Breathe in for 4 counts\n2. Hold for 4 counts\n3. Breathe out for 4 counts\n4. Hold for 4 counts\n\nRepeat 5-10 times');
+        }
+
+        function start5Senses() {
+            alert('🌍 5 Senses Grounding:\n\n5 things I SEE:\n4 things I HEAR:\n3 things I FEEL:\n2 things I SMELL:\n1 thing I TASTE:');
+        }
+
+        function startThoughtChallenging() {
+            alert('💭 Thought Challenging:\n\n1. Identify the thought\n2. Ask: Is this true?\n3. What evidence supports/opposes it?\n4. Develop a balanced thought\n5. Practice new thought');
+        }
+
+        function startMuscleRelax() {
+            alert('🎯 Progressive Muscle Relaxation:\n\nTense and release muscle groups:\n- Face & jaw\n- Neck & shoulders\n- Arms & hands\n- Chest & stomach\n- Legs & feet');
+        }
+
+        function startWorryDump() {
+            alert('📝 Worry Dump:\n\nSpend 10 minutes writing everything that\'s worrying you without filtering. This helps externalize stress and gain perspective.');
+        }
+
+        function startCopingStatements() {
+            const statements = [
+                "I am strong enough to handle this.",
+                "This feeling is temporary and will pass.",
+                "I have overcome difficulties before.",
+                "I deserve kindness and compassion.",
+                "I am capable of finding solutions."
+            ];
+            const random = statements[Math.floor(Math.random() * statements.length)];
+            alert('💪 Today\'s Coping Statement:\n\n"' + random + '"');
+        }
+
+        function quickTool(type) {
+            const tools = {
+                calm: 'Hold an ice cube for 30-60 seconds. The physical shock resets your nervous system.',
+                jump: 'Jump around for 1 minute to discharge excess anxiety energy.',
+                splash: 'Splash cold water on your face. It activates your calm reflex.',
+                scream: 'Go somewhere private and scream as loud as you can. Release that pent-up emotion!',
+                stretch: 'Stretch for 2-3 minutes to release physical tension and reset.',
+                music: 'Listen to music that lifts your mood or helps you process emotions.'
+            };
+            alert('✨ ' + tools[type]);
+        }
+    </script>
+</body>
+</html>

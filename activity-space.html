@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Space - Journey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #FFD166;
+            --color-secondary: #FFB74D;
+            --color-bg: #FFF9F0;
+            --color-surface: #FFFFFF;
+            --color-text: #3D3D3D;
+            --color-text-light: #8B7355;
+        }
+
+        body {
+            background: linear-gradient(135deg, #FFF9F0 0%, #FFE5D9 100%);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            color: var(--color-text);
+        }
+
+        .header {
+            background: var(--color-surface);
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-4px);
+        }
+
+        .header-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-text);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, rgba(255, 209, 102, 0.1) 0%, rgba(255, 182, 77, 0.1) 100%);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #FFB74D 0%, #FFD166 100%);
+            color: white;
+        }
+
+        .tab-button:hover:not(.active) {
+            background: linear-gradient(135deg, rgba(255, 182, 77, 0.2) 0%, rgba(255, 166, 51, 0.2) 100%);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* ACTIVITY CARDS */
+        .activity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .activity-card {
+            background: var(--color-surface);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 182, 77, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        .activity-emoji {
+            font-size: 48px;
+            text-align: center;
+        }
+
+        .activity-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text);
+        }
+
+        .activity-description {
+            font-size: 13px;
+            color: var(--color-text-light);
+            line-height: 1.5;
+        }
+
+        .activity-button {
+            margin-top: auto;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #FFB74D 0%, #FFD166 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: 'Fredoka', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .activity-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 182, 77, 0.3);
+        }
+
+        /* VIRTUAL PET */
+        .pet-container {
+            background: var(--color-surface);
+            border-radius: 20px;
+            padding: 40px 24px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .pet-display {
+            font-size: 120px;
+            margin: 20px 0;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .pet-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 30px 0;
+        }
+
+        .pet-stat {
+            background: linear-gradient(135deg, rgba(255, 209, 102, 0.1) 0%, rgba(255, 182, 77, 0.1) 100%);
+            padding: 12px;
+            border-radius: 12px;
+        }
+
+        .pet-stat-label {
+            font-size: 12px;
+            color: var(--color-text-light);
+            margin-bottom: 4px;
+        }
+
+        .pet-stat-value {
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Fredoka', sans-serif;
+            color: var(--color-secondary);
+        }
+
+        .pet-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        .pet-action-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #FFB74D 0%, #FFD166 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: 'Fredoka', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .pet-action-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(255, 182, 77, 0.3);
+        }
+
+        /* BREATHING EXERCISE */
+        .breathing-circle {
+            width: 200px;
+            height: 200px;
+            margin: 40px auto;
+            background: linear-gradient(135deg, #FFB74D 0%, #FFD166 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            animation: breathing 8s infinite;
+        }
+
+        @keyframes breathing {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+
+        .breathing-instructions {
+            text-align: center;
+            font-size: 16px;
+            color: var(--color-text);
+            margin: 20px 0;
+            line-height: 1.8;
+        }
+
+        .instruction-line {
+            font-weight: 600;
+            color: var(--color-secondary);
+            margin: 10px 0;
+        }
+
+        @media (max-width: 768px) {
+            .activity-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pet-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .pet-display {
+                font-size: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <button class="back-btn" onclick="window.location.href='journey-dashboard.html'">←</button>
+            <h1 class="header-title">✨ Activity Space</h1>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab('activities')">🎨 Activities</button>
+            <button class="tab-button" onclick="switchTab('pet')">🐾 Virtual Pet</button>
+            <button class="tab-button" onclick="switchTab('breathing')">🫁 Breathing</button>
+        </div>
+
+        <!-- Activities Tab -->
+        <div id="activities" class="tab-content active">
+            <div class="activity-grid">
+                <div class="activity-card">
+                    <div class="activity-emoji">🎨</div>
+                    <div class="activity-title">Digital Coloring</div>
+                    <div class="activity-description">Relax and express creativity with calming digital coloring pages. Great for mindfulness!</div>
+                    <button class="activity-button" onclick="startColoring()">Start Coloring</button>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-emoji">😴</div>
+                    <div class="activity-title">Counting Sheep</div>
+                    <div class="activity-description">A soothing relaxation activity to calm your mind and body. Perfect before sleep.</div>
+                    <button class="activity-button" onclick="startCountingSheep()">Begin Counting</button>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-emoji">🧘</div>
+                    <div class="activity-title">Mindfulness</div>
+                    <div class="activity-description">Guided mindfulness and meditation exercises to center yourself and find peace.</div>
+                    <button class="activity-button" onclick="startMindfulness()">Start Session</button>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-emoji">🎵</div>
+                    <div class="activity-title">Ambient Sounds</div>
+                    <div class="activity-description">Listen to calming nature sounds - rain, forest, ocean waves, and more.</div>
+                    <button class="activity-button" onclick="startAmbient()">Play Sounds</button>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-emoji">📝</div>
+                    <div class="activity-title">Gratitude Practice</div>
+                    <div class="activity-description">List things you're grateful for to shift your mindset positively.</div>
+                    <button class="activity-button" onclick="startGratitude()">Start Practice</button>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-emoji">🌟</div>
+                    <div class="activity-title">Affirmations</div>
+                    <div class="activity-description">Daily affirmations and positive mantras to boost your mood and confidence.</div>
+                    <button class="activity-button" onclick="startAffirmations()">Read Today's</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Virtual Pet Tab -->
+        <div id="pet" class="tab-content">
+            <div class="pet-container">
+                <h2 style="font-family: 'Fredoka', sans-serif; font-size: 24px; margin-bottom: 10px;">Your Companion 🐾</h2>
+                <p style="color: var(--color-text-light); margin-bottom: 20px;">Caring for your virtual pet helps you build daily wellness habits!</p>
+                
+                <div class="pet-display" id="pet-display">🐻</div>
+                <p id="pet-name" style="font-size: 18px; font-weight: 600;">Cozy Bear</p>
+
+                <div class="pet-stats">
+                    <div class="pet-stat">
+                        <div class="pet-stat-label">Happiness</div>
+                        <div class="pet-stat-value" id="happiness">80%</div>
+                    </div>
+                    <div class="pet-stat">
+                        <div class="pet-stat-label">Energy</div>
+                        <div class="pet-stat-value" id="energy">60%</div>
+                    </div>
+                    <div class="pet-stat">
+                        <div class="pet-stat-label">Health</div>
+                        <div class="pet-stat-value" id="health">75%</div>
+                    </div>
+                </div>
+
+                <div class="pet-actions">
+                    <button class="pet-action-btn" onclick="feedPet()">🍎 Feed</button>
+                    <button class="pet-action-btn" onclick="playWithPet()">🎮 Play</button>
+                    <button class="pet-action-btn" onclick="petPet()">🤚 Pet</button>
+                    <button class="pet-action-btn" onclick="sleepWithPet()">😴 Rest</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Breathing Tab -->
+        <div id="breathing" class="tab-content">
+            <div class="pet-container">
+                <h2 style="font-family: 'Fredoka', sans-serif; font-size: 24px; margin-bottom: 10px;">Guided Breathing Exercise 🫁</h2>
+                
+                <div class="breathing-instructions">
+                    <div class="instruction-line">Follow the circle and breathe deeply</div>
+                    <div style="font-size: 14px; margin: 20px 0;">
+                        <div>↑ Expand - Breathe In (4 seconds)</div>
+                        <div>↓ Contract - Breathe Out (4 seconds)</div>
+                    </div>
+                </div>
+
+                <div class="breathing-circle" id="breathing-circle">🫁</div>
+
+                <div class="breathing-instructions" style="margin-top: 40px;">
+                    <div style="font-size: 14px; color: var(--color-text-light);">
+                        <p>Breathing exercises help reduce anxiety and stress.</p>
+                        <p style="margin-top: 10px;">Take 5-10 minutes daily for best results.</p>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="activity-button" onclick="stopBreathing()">Finish Session</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Activity functions
+        function startColoring() {
+            alert('🎨 Digital Coloring feature coming soon!\n\nYou\'ll be able to color interactive designs and save your artwork.');
+        }
+
+        function startCountingSheep() {
+            alert('😴 Counting Sheep feature coming soon!\n\nWatch cute sheep float across your screen while counting.');
+        }
+
+        function startMindfulness() {
+            alert('🧘 Guided Mindfulness coming soon!\n\nIncludes breathing exercises and calming meditations.');
+        }
+
+        function startAmbient() {
+            alert('🎵 Ambient Sounds coming soon!\n\nChoose from rain, forest, ocean, and more calming soundscapes.');
+        }
+
+        function startGratitude() {
+            alert('📝 Gratitude Practice coming soon!\n\nList 3-5 things you\'re grateful for today.');
+        }
+
+        function startAffirmations() {
+            alert('🌟 Today\'s Affirmation:\n\n"I am worthy of love and kindness, starting with myself."');
+        }
+
+        // Virtual Pet Functions
+        let petStats = {
+            happiness: 80,
+            energy: 60,
+            health: 75
+        };
+
+        function updatePetDisplay() {
+            document.getElementById('happiness').textContent = petStats.happiness + '%';
+            document.getElementById('energy').textContent = petStats.energy + '%';
+            document.getElementById('health').textContent = petStats.health + '%';
+        }
+
+        function feedPet() {
+            petStats.health = Math.min(100, petStats.health + 15);
+            petStats.happiness = Math.min(100, petStats.happiness + 5);
+            petStats.energy = Math.max(0, petStats.energy - 10);
+            updatePetDisplay();
+            document.getElementById('pet-display').textContent = '🐻😋';
+            setTimeout(() => document.getElementById('pet-display').textContent = '🐻', 1000);
+        }
+
+        function playWithPet() {
+            petStats.happiness = Math.min(100, petStats.happiness + 20);
+            petStats.energy = Math.max(0, petStats.energy - 20);
+            petStats.health = Math.max(0, petStats.health - 5);
+            updatePetDisplay();
+            document.getElementById('pet-display').textContent = '🐻🎮';
+            setTimeout(() => document.getElementById('pet-display').textContent = '🐻', 1000);
+        }
+
+        function petPet() {
+            petStats.happiness = Math.min(100, petStats.happiness + 10);
+            petStats.health = Math.min(100, petStats.health + 3);
+            updatePetDisplay();
+            document.getElementById('pet-display').textContent = '🐻😊';
+            setTimeout(() => document.getElementById('pet-display').textContent = '🐻', 1000);
+        }
+
+        function sleepWithPet() {
+            petStats.energy = Math.min(100, petStats.energy + 30);
+            petStats.health = Math.min(100, petStats.health + 10);
+            updatePetDisplay();
+            document.getElementById('pet-display').textContent = '🐻😴';
+            setTimeout(() => document.getElementById('pet-display').textContent = '🐻', 2000);
+        }
+
+        function stopBreathing() {
+            switchTab('activities');
+        }
+
+        updatePetDisplay();
+    </script>
+</body>
+</html>

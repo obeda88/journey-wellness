@@ -1,0 +1,154 @@
+{
+  "colors": {
+    "primary": {
+      "peaceful": {
+        "name": "Peaceful Green",
+        "hex": "#A8D8A8",
+        "rgb": "168, 216, 168",
+        "hsl": "120, 39%, 75%",
+        "usage": "Calm moments, meditation, reflection"
+      },
+      "happy": {
+        "name": "Happy Yellow",
+        "hex": "#FFD166",
+        "rgb": "255, 209, 102",
+        "hsl": "41, 100%, 70%",
+        "usage": "Good days, joy, achievements"
+      },
+      "excited": {
+        "name": "Excited Orange",
+        "hex": "#FFB74D",
+        "rgb": "255, 183, 77",
+        "hsl": "31, 100%, 65%",
+        "usage": "Energetic moments, adventures"
+      },
+      "frustrated": {
+        "name": "Frustrated Red",
+        "hex": "#FF6B6B",
+        "rgb": "255, 107, 107",
+        "hsl": "0, 100%, 71%",
+        "usage": "Challenging moments, venting"
+      },
+      "tired": {
+        "name": "Tired Lavender",
+        "hex": "#D9A5D9",
+        "rgb": "217, 165, 217",
+        "hsl": "300, 47%, 75%",
+        "usage": "Low energy, rest, recovery"
+      },
+      "loved": {
+        "name": "Loved Sage",
+        "hex": "#C8E6C9",
+        "rgb": "200, 230, 201",
+        "hsl": "124, 39%, 84%",
+        "usage": "Connection, relationships, gratitude"
+      },
+      "sad": {
+        "name": "Sad Mauve",
+        "hex": "#B8B8D8",
+        "rgb": "184, 184, 216",
+        "hsl": "240, 26%, 78%",
+        "usage": "Difficult emotions, processing"
+      },
+      "grateful": {
+        "name": "Grateful Peach",
+        "hex": "#FFE5B4",
+        "rgb": "255, 229, 180",
+        "hsl": "30, 100%, 85%",
+        "usage": "Growth, transformation, appreciation"
+      }
+    },
+    "neutral": {
+      "background": {
+        "name": "Cream Background",
+        "hex": "#FAF8F5",
+        "rgb": "250, 248, 245",
+        "hsl": "20, 29%, 97%",
+        "usage": "Main page background"
+      },
+      "surface": {
+        "name": "White Surface",
+        "hex": "#FFFFFF",
+        "rgb": "255, 255, 255",
+        "hsl": "0, 0%, 100%",
+        "usage": "Cards, containers, surfaces"
+      },
+      "textDark": {
+        "name": "Dark Brown Text",
+        "hex": "#5C4033",
+        "rgb": "92, 64, 51",
+        "hsl": "18, 29%, 28%",
+        "usage": "Primary text, headings"
+      },
+      "textLight": {
+        "name": "Light Brown Text",
+        "hex": "#8B7355",
+        "rgb": "139, 115, 85",
+        "hsl": "25, 24%, 44%",
+        "usage": "Secondary text, descriptions"
+      }
+    },
+    "shadows": {
+      "subtle": "rgba(0, 0, 0, 0.08)",
+      "medium": "rgba(0, 0, 0, 0.12)",
+      "strong": "rgba(0, 0, 0, 0.15)"
+    }
+  },
+  "cssVariables": {
+    "root": {
+      "--color-peaceful": "#A8D8A8",
+      "--color-happy": "#FFD166",
+      "--color-excited": "#FFB74D",
+      "--color-frustrated": "#FF6B6B",
+      "--color-tired": "#D9A5D9",
+      "--color-loved": "#C8E6C9",
+      "--color-sad": "#B8B8D8",
+      "--color-grateful": "#FFE5B4",
+      "--color-bg-main": "#FAF8F5",
+      "--color-surface": "#FFFFFF",
+      "--text-dark": "#5C4033",
+      "--text-light": "#8B7355",
+      "--shadow-subtle": "0 2px 8px rgba(0, 0, 0, 0.08)",
+      "--shadow-medium": "0 4px 12px rgba(0, 0, 0, 0.12)",
+      "--shadow-strong": "0 6px 16px rgba(0, 0, 0, 0.15)",
+      "--spacing-xs": "4px",
+      "--spacing-sm": "8px",
+      "--spacing-md": "12px",
+      "--spacing-base": "16px",
+      "--spacing-lg": "24px",
+      "--spacing-xl": "32px",
+      "--spacing-2xl": "48px",
+      "--radius-sm": "8px",
+      "--radius-md": "12px",
+      "--radius-lg": "16px",
+      "--radius-xl": "24px",
+      "--radius-full": "50%",
+      "--transition-fast": "0.15s ease",
+      "--transition-standard": "0.3s ease",
+      "--transition-slow": "0.5s ease"
+    }
+  },
+  "palettes": {
+    "light": {
+      "background": "#FAF8F5",
+      "surface": "#FFFFFF",
+      "primary": "#FFD166",
+      "text": "#5C4033",
+      "textSecondary": "#8B7355",
+      "border": "#E8E4DF"
+    },
+    "dark": {
+      "background": "#2A2624",
+      "surface": "#3E3935",
+      "primary": "#FFD166",
+      "text": "#E8E4DF",
+      "textSecondary": "#B8B8B0",
+      "border": "#5C5359"
+    }
+  },
+  "gradients": {
+    "peacefulToHappy": "linear-gradient(135deg, #A8D8A8 0%, #FFD166 100%)",
+    "warmSunrise": "linear-gradient(135deg, #FFB74D 0%, #FF6B6B 100%)",
+    "coolCalm": "linear-gradient(135deg, #A8D8A8 0%, #B8B8D8 100%)"
+  }
+}

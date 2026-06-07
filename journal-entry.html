@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Entry - Journey Journal</title>
+    <link rel="stylesheet" href="css/design-system.css">
+    <link rel="stylesheet" href="css/journal.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="journal-feed.html" class="btn-back">← Back</a>
+                <h1 class="header-title">New Entry</h1>
+                <div style="width: 40px;"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <form id="entry-form" class="entry-form">
+                <!-- Mood & Avatar Selection -->
+                <section class="form-section card">
+                    <h2 class="section-title">How are you feeling today?</h2>
+                    <div class="mood-selector-large" id="mood-selector-large">
+                        <!-- Moods with avatars will be loaded here -->
+                    </div>
+                    <input type="hidden" id="selected-mood" name="mood" required>
+                    <input type="hidden" id="selected-avatar" name="avatar">
+                </section>
+
+                <!-- Today's Prompt -->
+                <section class="form-section card">
+                    <h2 class="section-title">Today's Reflection</h2>
+                    <div class="prompt-box">
+                        <p class="prompt-text" id="entry-prompt-display">Loading prompt...</p>
+                        <button type="button" class="btn-small" id="new-prompt-btn">Get another prompt</button>
+                    </div>
+                </section>
+
+                <!-- Write Entry -->
+                <section class="form-section card">
+                    <h2 class="section-title">Your Thoughts</h2>
+                    <div class="form-group">
+                        <textarea id="entry-content" name="content" placeholder="Write your journal entry here... There's no right or wrong way to express yourself." required rows="8" class="form-textarea"></textarea>
+                    </div>
+                </section>
+
+                <!-- Category -->
+                <section class="form-section card">
+                    <h2 class="section-title">Category</h2>
+                    <div class="form-group">
+                        <select id="entry-category" name="category" class="form-select">
+                            <option value="reflection">Reflection</option>
+                            <option value="gratitude">Gratitude</option>
+                            <option value="creative">Creative</option>
+                            <option value="thoughts">Thoughts</option>
+                            <option value="dreams">Dreams</option>
+                            <option value="health">Health & Wellness</option>
+                        </select>
+                    </div>
+                </section>
+
+                <!-- Photo Upload -->
+                <section class="form-section card">
+                    <h2 class="section-title">Add Photos (Optional)</h2>
+                    <p class="section-subtitle">Capture moments and memories</p>
+                    
+                    <div class="photo-upload" id="photo-upload">
+                        <input type="file" id="entry-photos" name="photos" accept="image/*" multiple hidden>
+                        <label for="entry-photos" class="upload-area">
+                            <div class="upload-icon">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                    <circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/>
+                                    <path d="M21 15l-5-5L5 21"/>
+                                </svg>
+                            </div>
+                            <p class="upload-title">Add your photos</p>
+                            <span class="upload-hint">Click to browse or drag images</span>
+                        </label>
+                    </div>
+
+                    <div class="photo-preview" id="photo-preview">
+                        <!-- Photo previews will be shown here -->
+                    </div>
+                </section>
+
+                <!-- Tags -->
+                <section class="form-section card">
+                    <h2 class="section-title">Tags (Optional)</h2>
+                    <p class="section-subtitle">Help organize your memories</p>
+                    <div class="form-group">
+                        <input type="text" id="entry-tags" placeholder="Add tags separated by commas (e.g., family, travel, self-care)" class="form-input">
+                        <div class="tags-list" id="tags-list"></div>
+                    </div>
+                </section>
+
+                <!-- Form Actions -->
+                <section class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="save-draft-btn">Save as Draft</button>
+                    <button type="submit" class="btn btn-primary btn-large">Save Entry</button>
+                </section>
+
+            </form>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="data/moods.js"></script>
+    <script src="data/prompts.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/avatars.js"></script>
+    <script src="js/journal-entry.js"></script>
+</body>
+</html>
