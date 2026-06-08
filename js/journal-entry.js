@@ -27,7 +27,7 @@ function initializeForm() {
     day: 'numeric'
   });
   
-  const dateElement = document.querySelector('.header-subtitle');
+  const dateElement = document.querySelector('.page-header-subtitle');
   if (dateElement) {
     dateElement.textContent = dateDisplay;
   }
@@ -231,17 +231,17 @@ function showNotification(message) {
     bottom: 24px;
     left: 24px;
     right: 24px;
-    background-color: var(--color-happy);
+    background-color: var(--text-heading);
     color: white;
     padding: 16px 24px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     font-weight: 600;
     z-index: 1000;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
   `;
-  
+
   document.body.appendChild(notification);
-  
+
   setTimeout(() => {
     notification.style.animation = 'slideOut 0.3s ease-out';
     setTimeout(() => notification.remove(), 300);
@@ -303,9 +303,9 @@ function getTags() {
 
 // Update back button
 function updateBackButton() {
-  const backBtn = document.querySelector('.btn-back');
+  const backBtn = document.querySelector('.back-btn');
   if (backBtn) {
-    backBtn.href = 'journey-dashboard.html';
+    backBtn.href = 'journal-feed.html';
   }
 }
 

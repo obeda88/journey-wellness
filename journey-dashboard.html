@@ -1,378 +1,243 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Journey - Emotional Wellness Platform</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --color-primary: #FFD166;
-            --color-secondary: #FFB74D;
-            --color-accent: #FF6B6B;
-            --color-bg: #FFF9F0;
-            --color-surface: #FFFFFF;
-            --color-text: #3D3D3D;
-            --color-text-light: #8B7355;
-            --color-success: #A8D8A8;
-            --color-calm: #B8D8E8;
-        }
-
-        body {
-            background: linear-gradient(135deg, #FFF9F0 0%, #FFE5D9 100%);
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            color: var(--color-text);
-        }
-
-        /* NAVIGATION */
-        .navbar {
-            background: var(--color-surface);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            padding: 16px 20px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .navbar-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .nav-logo {
-            font-size: 24px;
-            font-weight: 700;
-            font-family: 'Fredoka', sans-serif;
-            color: var(--color-text);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .nav-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 10px 16px;
-            background: linear-gradient(135deg, rgba(255, 209, 102, 0.1) 0%, rgba(255, 182, 77, 0.1) 100%);
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--color-text);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-family: 'Fredoka', sans-serif;
-        }
-
-        .nav-link:hover {
-            background: linear-gradient(135deg, rgba(255, 182, 77, 0.2) 0%, rgba(255, 166, 51, 0.2) 100%);
-            transform: translateY(-2px);
-        }
-
-        .nav-link.active {
-            background: linear-gradient(135deg, #FFB74D 0%, #FFD166 100%);
-            color: white;
-        }
-
-        /* MAIN CONTAINER */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        /* HEADER */
-        .page-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .page-emoji {
-            font-size: 60px;
-            display: block;
-            margin-bottom: 12px;
-        }
-
-        .page-title {
-            font-size: 36px;
-            font-weight: 700;
-            font-family: 'Fredoka', sans-serif;
-            margin-bottom: 8px;
-            color: var(--color-text);
-        }
-
-        .page-subtitle {
-            font-size: 16px;
-            color: var(--color-text-light);
-        }
-
-        /* DASHBOARD GRID */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            margin-top: 40px;
-        }
-
-        .feature-card {
-            background: var(--color-surface);
-            border-radius: 20px;
-            padding: 28px 24px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(255, 182, 77, 0.1);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
-            border-color: var(--color-secondary);
-        }
-
-        .feature-emoji {
-            font-size: 48px;
-            line-height: 1;
-        }
-
-        .feature-title {
-            font-size: 18px;
-            font-weight: 700;
-            font-family: 'Fredoka', sans-serif;
-            color: var(--color-text);
-        }
-
-        .feature-description {
-            font-size: 13px;
-            color: var(--color-text-light);
-            line-height: 1.5;
-        }
-
-        .feature-button {
-            margin-top: auto;
-            padding: 10px 16px;
-            background: linear-gradient(135deg, #FFB74D 0%, #FFD166 100%);
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 13px;
-            transition: all 0.3s ease;
-            font-family: 'Fredoka', sans-serif;
-        }
-
-        .feature-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 16px rgba(255, 182, 77, 0.3);
-        }
-
-        /* QUICK STATS */
-        .stats-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            margin-bottom: 40px;
-        }
-
-        .stat-card {
-            background: var(--color-surface);
-            border-radius: 16px;
-            padding: 20px;
-            border: 1px solid rgba(255, 182, 77, 0.1);
-            text-align: center;
-        }
-
-        .stat-emoji {
-            font-size: 32px;
-            margin-bottom: 8px;
-        }
-
-        .stat-number {
-            font-size: 28px;
-            font-weight: 700;
-            font-family: 'Fredoka', sans-serif;
-            color: var(--color-secondary);
-        }
-
-        .stat-label {
-            font-size: 12px;
-            color: var(--color-text-light);
-            margin-top: 4px;
-        }
-
-        @media (max-width: 768px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .page-title {
-                font-size: 28px;
-            }
-
-            .nav-links {
-                gap: 6px;
-            }
-
-            .nav-link {
-                padding: 8px 12px;
-                font-size: 12px;
-            }
-        }
-    </style>
+    <title>Journey — Your Wellness Companion</title>
+    <meta name="description" content="Track your mood, journal your thoughts, and build healthy habits with Journey.">
+    <link rel="stylesheet" href="css/theme.css">
 </head>
+
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="navbar-content">
-            <div class="nav-logo">🌸 Journey</div>
-            <div class="nav-links">
-                <a href="journal-feed.html" class="nav-link active">📔 Journal</a>
-                <a href="mood-calendar.html" class="nav-link">📅 Calendar</a>
-                <a href="feelings-wheel.html" class="nav-link">🎡 Feelings</a>
-                <a href="activity-space.html" class="nav-link">✨ Activities</a>
-                <a href="coping-space.html" class="nav-link">🤍 Coping</a>
+    <div class="app-shell">
+
+        <!-- ===== HEADER ===== -->
+        <header class="app-header">
+            <div class="header-top">
+                <div>
+                    <p class="header-greeting">Welcome back,</p>
+                    <h1 class="header-name">Journey! 🌸</h1>
+                </div>
+                <div class="header-avatar" title="Your profile">🌸</div>
             </div>
-        </div>
-    </nav>
 
-    <!-- Main Content -->
-    <div class="container">
-        <div class="page-header">
-            <span class="page-emoji">🌸</span>
-            <h1 class="page-title">Welcome to Your Journey</h1>
-            <p class="page-subtitle">Your safe space for emotional wellness, reflection, and self-care</p>
-        </div>
-
-        <!-- Quick Stats -->
-        <div class="stats-section">
-            <div class="stat-card">
-                <div class="stat-emoji">📔</div>
-                <div class="stat-number" id="entry-count">0</div>
-                <div class="stat-label">Journal Entries</div>
+            <!-- Week Strip -->
+            <div class="week-strip" id="week-strip">
+                <!-- Populated by JS -->
             </div>
-            <div class="stat-card">
-                <div class="stat-emoji">😊</div>
-                <div class="stat-number" id="mood-count">0</div>
-                <div class="stat-label">Moods Tracked</div>
+        </header>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="app-content anim-fade-in">
+
+            <!-- Stats Row -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-icon">📔</div>
+                    <div class="stat-value" id="entry-count">0</div>
+                    <div class="stat-label">Journal Entries</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">😊</div>
+                    <div class="stat-value" id="mood-count">0</div>
+                    <div class="stat-label">Moods Tracked</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🔥</div>
+                    <div class="stat-value" id="streak-count">0</div>
+                    <div class="stat-label">Day Streak</div>
+                </div>
             </div>
-            <div class="stat-card">
-                <div class="stat-emoji">🔥</div>
-                <div class="stat-number" id="streak-count">0</div>
-                <div class="stat-label">Day Streak</div>
+
+            <!-- Mood Card -->
+            <div class="mood-card">
+                <p class="mood-card-title">How are you feeling?</p>
+                <button class="btn-log-mood" id="log-mood-btn" onclick="handleLogMood()">Write your journal</button>
             </div>
-        </div>
 
-        <!-- Feature Grid -->
-        <div class="dashboard-grid">
-            <!-- Journal -->
-            <a href="journal-feed.html" class="feature-card">
-                <div class="feature-emoji">📔</div>
-                <div class="feature-title">Your Journal</div>
-                <div class="feature-description">Create, view, and reflect on your thoughts and feelings. Add photos, voice notes, and memories.</div>
-                <button class="feature-button">Open Journal</button>
-            </a>
-
-            <!-- Mood Calendar -->
-            <a href="mood-calendar.html" class="feature-card">
-                <div class="feature-emoji">📅</div>
-                <div class="feature-title">Mood Calendar</div>
-                <div class="feature-description">Visualize your emotional patterns over time with cute animal avatars and mood tracking.</div>
-                <button class="feature-button">View Calendar</button>
-            </a>
-
-            <!-- Feelings Wheel -->
-            <a href="feelings-wheel.html" class="feature-card">
-                <div class="feature-emoji">🎡</div>
-                <div class="feature-title">Feelings Wheel</div>
-                <div class="feature-description">Explore your emotions with an interactive feelings wheel. Identify and understand what you're feeling.</div>
-                <button class="feature-button">Explore Feelings</button>
-            </a>
-
-            <!-- Activity Space -->
-            <a href="activity-space.html" class="feature-card">
-                <div class="feature-emoji">✨</div>
-                <div class="feature-title">Activity Space</div>
-                <div class="feature-description">Engage in calming activities: digital coloring, mindfulness exercises, and your virtual pet companion.</div>
-                <button class="feature-button">Start Activity</button>
-            </a>
-
-            <!-- Coping Space -->
-            <a href="coping-space.html" class="feature-card">
-                <div class="feature-emoji">🤍</div>
-                <div class="feature-title">Coping Tools</div>
-                <div class="feature-description">Access guided breathing exercises, grounding techniques, and emotion regulation strategies.</div>
-                <button class="feature-button">Get Support</button>
-            </a>
-
-            <!-- Settings/About -->
-            <div class="feature-card">
-                <div class="feature-emoji">⚙️</div>
-                <div class="feature-title">Settings & Info</div>
-                <div class="feature-description">Customize your Journey experience, manage your data, and learn more about emotional wellness.</div>
-                <button class="feature-button">Explore</button>
+            <!-- Journal Section -->
+            <div>
+                <div class="section-header">
+                    <h2 class="section-title">My Journal</h2>
+                    <a href="journal-feed.html" class="section-link">
+                        Show All <span class="chevron">&#8964;</span>
+                    </a>
+                </div>
+                <div class="journal-scroll" id="journal-preview">
+                    <div class="journal-entry-card" style="min-width:200px;">
+                        <p class="journal-entry-date">Start your journey</p>
+                        <p class="journal-entry-preview">No entries yet. Tap "Show All" to begin journaling and capture
+                            your thoughts and feelings. ✨</p>
+                    </div>
+                </div>
             </div>
-        </div>
+
+            <!-- Feature Grid -->
+            <div style="margin-top: 20px;">
+                <div class="section-header">
+                    <h2 class="section-title">Explore</h2>
+                </div>
+                <div class="feature-grid">
+                    <a href="mood-calendar.html" class="feature-card">
+                        <div class="feature-card-icon">📅</div>
+                        <div class="feature-card-title">Mood Calendar</div>
+                        <div class="feature-card-desc">Visualise your emotional patterns over time</div>
+                        <button class="feature-card-btn">View Calendar</button>
+                    </a>
+                    <a href="feelings-wheel.html" class="feature-card">
+                        <div class="feature-card-icon">🎡</div>
+                        <div class="feature-card-title">Feelings Wheel</div>
+                        <div class="feature-card-desc">Explore and identify what you feel</div>
+                        <button class="feature-card-btn">Explore</button>
+                    </a>
+                    <a href="coping-space.html" class="feature-card">
+                        <div class="feature-card-icon">🤍</div>
+                        <div class="feature-card-title">Coping Tools</div>
+                        <div class="feature-card-desc">Breathing, grounding & regulation</div>
+                        <button class="feature-card-btn">Get Support</button>
+                    </a>
+                    <a href="activity-space.html" class="feature-card">
+                        <div class="feature-card-icon">✨</div>
+                        <div class="feature-card-title">Activity Space</div>
+                        <div class="feature-card-desc">Mindfulness, coloring & your virtual pet</div>
+                        <button class="feature-card-btn">Start Now</button>
+                    </a>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- ===== BOTTOM NAV ===== -->
+        <nav class="bottom-nav">
+            <a href="journey-dashboard.html" class="nav-item active" id="nav-home">
+                <div class="nav-item-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                    </svg>
+                </div>
+                <span class="nav-item-label">Home</span>
+            </a>
+            <a href="journal-feed.html" class="nav-item" id="nav-journal">
+                <div class="nav-item-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="3" />
+                        <path d="M8 7h8M8 12h8M8 17h5" />
+                    </svg>
+                </div>
+                <span class="nav-item-label">Journal</span>
+            </a>
+            <a href="activity-space.html" class="nav-item" id="nav-trackers">
+                <div class="nav-item-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                    </svg>
+                </div>
+                <span class="nav-item-label">Trackers</span>
+            </a>
+            <a href="feelings-wheel.html" class="nav-item" id="nav-info">
+                <div class="nav-item-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="12" />
+                        <line x1="12" y1="16" x2="12.01" y2="16" />
+                    </svg>
+                </div>
+                <span class="nav-item-label">Info</span>
+            </a>
+            <a href="coping-space.html" class="nav-item" id="nav-coping">
+                <div class="nav-item-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                    </svg>
+                </div>
+                <span class="nav-item-label">Coping</span>
+            </a>
+        </nav>
+
     </div>
 
     <script src="data/moods.js"></script>
     <script src="js/storage.js"></script>
     <script>
-        // Load stats
-        document.addEventListener('DOMContentLoaded', function() {
-            const entries = JSON.parse(localStorage.getItem('journey_entries') || '[]');
-            const entryCount = entries.length;
-            
-            // Count unique moods
-            const moods = new Set(entries.map(e => e.mood));
-            const moodCount = moods.size;
+        document.addEventListener('DOMContentLoaded', function () {
+            buildWeekStrip();
+            loadStats();
+            loadJournalPreview();
+        });
 
-            // Calculate streak (simplified - entries on consecutive days)
+        /* --- Week Strip --- */
+        function buildWeekStrip() {
+            const strip = document.getElementById('week-strip');
+            const today = new Date();
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            for (let i = -3; i <= 3; i++) {
+                const d = new Date(today);
+                d.setDate(today.getDate() + i);
+                const el = document.createElement('div');
+                el.className = 'week-day' + (i === 0 ? ' active' : '');
+                el.innerHTML = `
+            <span class="week-day-name">${days[d.getDay()]}</span>
+            <span class="week-day-num">${d.getDate()}</span>
+        `;
+                strip.appendChild(el);
+            }
+        }
+
+        /* --- Stats --- */
+        function loadStats() {
+            const entries = JSON.parse(localStorage.getItem('journey_entries') || '[]');
+            document.getElementById('entry-count').textContent = entries.length;
+
+            const moods = new Set(entries.map(e => e.mood));
+            document.getElementById('mood-count').textContent = moods.size;
+
             let streak = 0;
             if (entries.length > 0) {
-                const today = new Date();
-                const sortedEntries = entries.sort((a, b) => 
-                    new Date(b.createdAt) - new Date(a.createdAt)
-                );
-                
-                let currentDate = new Date(today);
-                for (const entry of sortedEntries) {
-                    const entryDate = new Date(entry.createdAt);
-                    if (entryDate.toDateString() === currentDate.toDateString()) {
+                const sorted = [...entries].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                let cur = new Date();
+                for (const e of sorted) {
+                    const d = new Date(e.createdAt);
+                    if (d.toDateString() === cur.toDateString()) {
                         streak++;
-                        currentDate.setDate(currentDate.getDate() - 1);
-                    } else if (entryDate < currentDate) {
-                        break;
-                    }
+                        cur.setDate(cur.getDate() - 1);
+                    } else if (d < cur) break;
                 }
             }
-
-            document.getElementById('entry-count').textContent = entryCount;
-            document.getElementById('mood-count').textContent = moodCount;
             document.getElementById('streak-count').textContent = streak;
-        });
+        }
+
+        /* --- Journal Preview --- */
+        function loadJournalPreview() {
+            const entries = JSON.parse(localStorage.getItem('journey_entries') || '[]');
+            if (!entries.length) return;
+
+            const container = document.getElementById('journal-preview');
+            container.innerHTML = '';
+
+            const recent = entries.slice(-3).reverse();
+            recent.forEach((entry, idx) => {
+                const d = new Date(entry.createdAt);
+                const dateStr = d.toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' });
+                const preview = (entry.content || '').substring(0, 120);
+                const card = document.createElement('div');
+                card.className = 'journal-entry-card';
+                card.innerHTML = `
+            <p class="journal-entry-date">${dateStr}</p>
+            <p class="journal-entry-preview">${preview}${preview.length >= 120 ? '...' : ''}</p>
+            <div class="journal-show-more" onclick="window.location.href='journal-feed.html'">
+                Show More &#8964;
+            </div>
+        `;
+                container.appendChild(card);
+            });
+        }
+
+        /* --- Log Mood --- */
+        function handleLogMood() {
+            window.location.href = 'journal-entry.html';
+        }
     </script>
 </body>
+
 </html>

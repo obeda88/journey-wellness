@@ -1,762 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Journey - Digital Journal</title>
-    <link rel="stylesheet" href="css/design-system.css">
+    <title>Journal — Journey Wellness</title>
+    <meta name="description" content="Your digital journal. Create, view and reflect on your thoughts and feelings.">
+    <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/journal.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        /* Cute Theme Overrides */
-        :root {
-            --color-primary: #FFD166;
-            --color-secondary: #FFB74D;
-            --color-accent: #FF6B6B;
-            --color-bg: #FFF9F0;
-            --color-surface: #FFFFFF;
-            --color-text: #3D3D3D;
-            --color-text-light: #8B7355;
-        }
-
-        body {
-            background: linear-gradient(135deg, #FFF9F0 0%, #FFE5D9 100%);
-            min-height: 100vh;
-        }
-
-        /* HERO SECTION */
-        .hero-section {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 60px 20px;
-            background: linear-gradient(135deg, #FFE5D9 0%, #FFF9F0 50%, #E8F5E9 100%);
-            overflow: hidden;
-        }
-
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(255, 182, 77, 0.15) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-
-        .hero-section::after {
-            content: '';
-            position: absolute;
-            bottom: -50px;
-            left: 0;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(168, 216, 168, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 600px;
-            text-align: center;
-            animation: slideUp 0.8s ease;
-        }
-
-        .hero-emoji {
-            font-size: 80px;
-            margin-bottom: 20px;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .hero-title {
-            font-size: 48px;
-            font-weight: 700;
-            color: var(--color-text);
-            margin-bottom: 16px;
-            font-family: 'Fredoka', sans-serif;
-            line-height: 1.2;
-        }
-
-        .hero-subtitle {
-            font-size: 18px;
-            color: var(--color-text-light);
-            margin-bottom: 12px;
-            font-weight: 500;
-        }
-
-        .hero-tagline {
-            font-size: 14px;
-            color: var(--color-text-light);
-            font-style: italic;
-            margin-bottom: 40px;
-            opacity: 0.8;
-        }
-
-        .hero-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 16px 40px;
-            background: linear-gradient(135deg, #FFB74D 0%, #FFD166 100%);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 10px 30px rgba(255, 182, 77, 0.3);
-            font-family: 'Fredoka', sans-serif;
-        }
-
-        .hero-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(255, 182, 77, 0.4);
-        }
-
-        .hero-button:active {
-            transform: translateY(-1px);
-        }
-
-        .hero-illustration {
-            position: absolute;
-            font-size: 120px;
-            opacity: 0.1;
-            z-index: 1;
-        }
-
-        .hero-illustration-1 {
-            top: 10%;
-            left: 5%;
-            animation: float 4s ease-in-out infinite;
-        }
-
-        .hero-illustration-2 {
-            bottom: 15%;
-            right: 8%;
-            animation: float 3.5s ease-in-out infinite 0.5s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* FEED SECTION */
-        .feed-section {
-            padding: 60px 20px;
-            background: linear-gradient(180deg, transparent 0%, rgba(255, 182, 77, 0.05) 100%);
-        }
-
-        .feed-container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .header {
-            background: transparent !important;
-            border: none !important;
-            padding: 0 !important;
-            margin-bottom: 40px;
-        }
-
-        .header-title {
-            font-size: 36px;
-            color: var(--color-text);
-            margin: 0;
-        }
-
-        .header-subtitle {
-            font-size: 14px;
-            color: var(--color-text-light);
-            margin: 8px 0 0 0;
-        }
-
-        /* DATE DISPLAY */
-        .date-display {
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .date-display p {
-            font-size: 14px;
-            color: var(--color-text-light);
-            font-weight: 500;
-        }
-
-        /* SECTIONS */
-        .prompt-section,
-        .mood-check-section,
-        .entries-feed {
-            margin-bottom: 40px;
-        }
-
-        .card {
-            background: var(--color-surface);
-            border-radius: 24px;
-            padding: 24px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(255, 182, 77, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
-        }
-
-        .section-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--color-text);
-            margin-bottom: 16px;
-            font-family: 'Fredoka', sans-serif;
-        }
-
-        .prompt-display {
-            font-size: 16px;
-            color: var(--color-text);
-            font-style: italic;
-            margin-bottom: 20px;
-            padding: 16px;
-            background: linear-gradient(135deg, rgba(255, 209, 102, 0.1) 0%, rgba(255, 182, 77, 0.1) 100%);
-            border-radius: 16px;
-            border-left: 4px solid var(--color-secondary);
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 24px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Fredoka', sans-serif;
-            font-size: 14px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #FFB74D 0%, #FFD166 100%);
-            color: white;
-            box-shadow: 0 6px 20px rgba(255, 182, 77, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 28px rgba(255, 182, 77, 0.4);
-        }
-
-        /* MOOD SELECTOR */
-        .mood-selector {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-            gap: 12px;
-        }
-
-        .mood-option {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            padding: 12px;
-            background: linear-gradient(135deg, rgba(255, 209, 102, 0.1) 0%, rgba(255, 182, 77, 0.1) 100%);
-            border: 2px solid transparent;
-            border-radius: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 32px;
-        }
-
-        .mood-option:hover {
-            transform: scale(1.05);
-            border-color: var(--color-secondary);
-        }
-
-        .mood-option.selected {
-            background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
-            border-color: var(--color-primary);
-            color: white;
-        }
-
-        .mood-name {
-            font-size: 12px;
-            color: var(--color-text);
-            font-weight: 500;
-        }
-
-        /* ENTRY CARD */
-        .entry-list {
-            display: grid;
-            gap: 16px;
-        }
-
-        .entry-card {
-            background: var(--color-surface);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(255, 182, 77, 0.1);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            gap: 16px;
-        }
-
-        .entry-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
-        }
-
-        .entry-avatar {
-            font-size: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, rgba(255, 209, 102, 0.2) 0%, rgba(255, 182, 77, 0.2) 100%);
-            border-radius: 16px;
-            flex-shrink: 0;
-        }
-
-        .entry-content {
-            flex: 1;
-        }
-
-        .entry-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 8px;
-        }
-
-        .entry-meta {
-            display: flex;
-            gap: 12px;
-            font-size: 12px;
-            color: var(--color-text-light);
-        }
-
-        .entry-meta-item {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .entry-preview {
-            font-size: 14px;
-            color: var(--color-text);
-            margin-bottom: 12px;
-            line-height: 1.5;
-        }
-
-        .entry-tags {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 12px;
-        }
-
-        .tag {
-            display: inline-block;
-            background: linear-gradient(135deg, rgba(168, 216, 168, 0.15) 0%, rgba(200, 230, 201, 0.15) 100%);
-            color: #388E3C;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 500;
-            border: 1px solid rgba(168, 216, 168, 0.3);
-        }
-
-        .entry-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .entry-btn {
-            background: transparent;
-            border: none;
-            color: var(--color-text);
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            padding: 6px 12px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .entry-btn:hover {
-            background: rgba(255, 182, 77, 0.1);
-            color: var(--color-secondary);
-        }
-
-        /* FAB */
-        .fab {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #FFB74D 0%, #FFD166 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            text-decoration: none;
-            color: white;
-            box-shadow: 0 10px 30px rgba(255, 182, 77, 0.4);
-            transition: all 0.3s ease;
-            z-index: 50;
-        }
-
-        .fab:hover {
-            transform: scale(1.1) translateY(-5px);
-            box-shadow: 0 15px 40px rgba(255, 182, 77, 0.5);
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--color-text-light);
-        }
-
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 36px;
-            }
-
-            .hero-subtitle {
-                font-size: 16px;
-            }
-
-            .mood-selector {
-                grid-template-columns: repeat(4, 1fr);
-            }
-
-            .entry-card {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-        }
-
-        /* ENTRY DETAIL MODAL */
-        .entry-detail-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(61, 61, 61, 0.5);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            padding: 20px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .entry-detail-overlay.show {
-            display: flex;
-            opacity: 1;
-        }
-
-        .entry-detail-modal {
-            background: var(--color-surface);
-            border-radius: 24px;
-            max-width: 600px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
-        }
-
-        .entry-detail-overlay.show .entry-detail-modal {
-            transform: translateY(0);
-        }
-
-        .entry-detail-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 20px 24px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-            position: sticky;
-            top: 0;
-            background: var(--color-surface);
-            border-radius: 24px 24px 0 0;
-            z-index: 1;
-        }
-
-        .entry-detail-avatar {
-            width: 56px;
-            height: 56px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            flex-shrink: 0;
-        }
-
-        .entry-detail-meta {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .entry-detail-date {
-            font-family: 'Fredoka', sans-serif;
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--color-text);
-            margin: 0;
-        }
-
-        .entry-detail-time {
-            font-size: 13px;
-            color: var(--color-text-light);
-            margin: 2px 0 0 0;
-        }
-
-        .entry-detail-close {
-            background: none;
-            border: none;
-            font-size: 28px;
-            line-height: 1;
-            cursor: pointer;
-            color: var(--color-text-light);
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: all 0.2s;
-            flex-shrink: 0;
-        }
-
-        .entry-detail-close:hover {
-            background: rgba(0, 0, 0, 0.05);
-            color: var(--color-text);
-        }
-
-        .entry-detail-body {
-            padding: 24px;
-        }
-
-        .entry-detail-prompt {
-            background: linear-gradient(135deg, rgba(255, 209, 102, 0.1) 0%, rgba(255, 182, 77, 0.1) 100%);
-            border-left: 4px solid var(--color-secondary);
-            border-radius: 12px;
-            padding: 12px 16px;
-            margin-bottom: 20px;
-        }
-
-        .entry-detail-prompt-label {
-            font-size: 11px;
-            text-transform: uppercase;
-            color: var(--color-text-light);
-            margin: 0 0 4px 0;
-            letter-spacing: 0.5px;
-            font-weight: 600;
-        }
-
-        .entry-detail-prompt-text {
-            font-size: 14px;
-            color: var(--color-text);
-            font-style: italic;
-            margin: 0;
-        }
-
-        .entry-detail-content {
-            font-size: 15px;
-            color: var(--color-text);
-            line-height: 1.7;
-            white-space: pre-wrap;
-            margin-bottom: 20px;
-            word-wrap: break-word;
-        }
-
-        .entry-detail-photos {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .entry-detail-photos img {
-            width: 100%;
-            aspect-ratio: 1;
-            object-fit: cover;
-            border-radius: 12px;
-        }
-
-        .entry-detail-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 20px;
-        }
-
-        .entry-detail-tag {
-            background: linear-gradient(135deg, rgba(168, 216, 168, 0.15) 0%, rgba(200, 230, 201, 0.15) 100%);
-            color: #388E3C;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 500;
-            border: 1px solid rgba(168, 216, 168, 0.3);
-        }
-
-        .entry-detail-info {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .entry-detail-mood {
-            background: var(--color-bg);
-            padding: 6px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            color: var(--color-text);
-            font-weight: 500;
-        }
-
-        .entry-detail-category {
-            background: #000;
-            padding: 6px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            color: #fff;
-            font-weight: 500;
-        }
-
-        .entry-detail-footer {
-            display: flex;
-            gap: 12px;
-            padding: 16px 24px;
-            border-top: 1px solid rgba(0, 0, 0, 0.06);
-            justify-content: space-between;
-            position: sticky;
-            bottom: 0;
-            background: var(--color-surface);
-            border-radius: 0 0 24px 24px;
-        }
-
-        .entry-detail-favorite,
-        .entry-detail-close-btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: 'Fredoka', sans-serif;
-            font-size: 14px;
-            transition: all 0.2s;
-        }
-
-        .entry-detail-favorite {
-            background: transparent;
-            color: var(--color-text);
-            border: 1px solid var(--color-text-light);
-        }
-
-        .entry-detail-favorite:hover {
-            background: rgba(255, 182, 77, 0.1);
-        }
-
-        .entry-detail-favorite.is-favorite {
-            color: var(--color-accent);
-            border-color: var(--color-accent);
-        }
-
-        .entry-detail-close-btn {
-            background: linear-gradient(135deg, #FFB74D 0%, #FFD166 100%);
-            color: white;
-        }
-
-        .entry-detail-close-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(255, 182, 77, 0.4);
-        }
-    </style>
 </head>
+
 <body>
+    <div class="app-shell">
 
-    <!-- Feed Section -->
-    <section class="feed-section" id="feed-section">
-        <div class="feed-container">
-            <!-- Header -->
-            <header class="header">
-                <h2 class="header-title">🌸 Journey</h2>
-                <p class="header-subtitle">Your memories & reflections</p>
-            </header>
+        <!-- ===== PAGE HEADER ===== -->
+        <header class="page-header">
+            <div class="page-header-content">
+                <button class="back-btn" onclick="window.location.href='journey-dashboard.html'"
+                    aria-label="Back">&#8592;</button>
+                <div>
+                    <h1 class="page-header-title">📔 My Journal</h1>
+                    <p class="page-header-subtitle">Your memories &amp; reflections</p>
+                </div>
+            </div>
+        </header>
 
-            <!-- Date Display -->
-            <div class="date-display">
-                <p id="today-date"></p>
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="app-content anim-fade-in">
+
+            <!-- Date -->
+            <div class="card"
+                style="padding: 14px 20px; display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+                <p id="today-date"
+                    style="font-weight:700; color:var(--text-heading); font-family:var(--font-display); font-size:15px;">
+                </p>
+                <span style="font-size:20px;">✨</span>
             </div>
 
-            <!-- Today's Prompt Section -->
-            <section class="prompt-section card">
-                <h2 class="section-title">✨ Today's Reflection</h2>
-                <p class="prompt-display" id="daily-prompt">Loading today's prompt...</p>
-                <button class="btn btn-primary" id="new-prompt-btn-feed">Get another prompt</button>
-            </section>
-
-            <!-- Quick Mood Check -->
-            <section class="mood-check-section card">
-                <h2 class="section-title">😊 How are you feeling?</h2>
-                <div class="mood-selector" id="quick-mood-selector">
-                    <!-- Moods will be loaded here -->
+            <!-- Today's Prompt -->
+            <div class="card" style="margin-bottom:12px;">
+                <h2 class="section-title" style="margin-bottom:12px;">✨ Today's Reflection</h2>
+                <div class="prompt-box" style="margin-bottom:14px;">
+                    <p class="prompt-text" id="daily-prompt">Loading today's prompt...</p>
                 </div>
-                <div style="margin-top: 24px; text-align: center;">
-                    <button class="btn btn-primary" onclick="handleWriteJournalClick()" style="width: 100%; max-width: 300px; padding: 16px; font-size: 16px;">Write Journal ✍️</button>
-                </div>
-            </section>
+                <button class="btn btn-secondary" id="new-prompt-btn-feed" style="font-size:13px; padding:8px 16px;">Get
+                    another prompt</button>
+            </div>
 
-            <!-- Journal Entries Feed -->
-            <section class="entries-feed">
-                <h2 class="section-title">📔 Your Entries</h2>
-                <div id="entry-list" class="entry-list">
+            <!-- Mood Check -->
+            <div class="mood-card" style="margin-bottom:12px; text-align:center;">
+                <p class="mood-card-title">😊 How are you feeling?</p>
+                <div class="mood-emojis" id="quick-mood-selector">
+                    <!-- Populated by app.js -->
+                </div>
+                <div style="margin-top:16px;">
+                    <button class="btn btn-dark btn-full" onclick="handleWriteJournalClick()"
+                        style="max-width:260px; margin:0 auto; display:flex;">Write Journal ✍️</button>
+                </div>
+            </div>
+
+            <!-- Journal Entries -->
+            <div>
+                <div class="section-header">
+                    <h2 class="section-title">📔 Your Entries</h2>
+                </div>
+                <div id="entry-list" class="entry-list" style="display:flex; flex-direction:column; gap:12px;">
                     <p class="empty-state">No entries yet. Start journaling to see your memories here! ✨</p>
                 </div>
-            </section>
-        </div>
+            </div>
 
+        </main>
 
-    </section>
+        <!-- ===== BOTTOM NAV ===== -->
+        <nav class="bottom-nav">
+            <a href="journey-dashboard.html" class="nav-item">
+                <div class="nav-item-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                    </svg>
+                </div>
+                <span class="nav-item-label">Home</span>
+            </a>
+            <a href="journal-feed.html" class="nav-item active">
+                <div class="nav-item-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="3" />
+                        <path d="M8 7h8M8 12h8M8 17h5" />
+                    </svg>
+                </div>
+                <span class="nav-item-label">Journal</span>
+            </a>
+            <a href="activity-space.html" class="nav-item">
+                <div class="nav-item-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                    </svg>
+                </div>
+                <span class="nav-item-label">Trackers</span>
+            </a>
+            <a href="feelings-wheel.html" class="nav-item">
+                <div class="nav-item-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="12" />
+                        <line x1="12" y1="16" x2="12.01" y2="16" />
+                    </svg>
+                </div>
+                <span class="nav-item-label">Info</span>
+            </a>
+            <a href="coping-space.html" class="nav-item">
+                <div class="nav-item-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                    </svg>
+                </div>
+                <span class="nav-item-label">Coping</span>
+            </a>
+        </nav>
 
-    <!-- Scripts -->
-    <!-- Navigation Bar -->
-    <nav style="background: white; padding: 16px 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 100;">
-        <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-            <a href="journey-dashboard.html" style="font-size: 20px; font-weight: 700; color: #3D3D3D; text-decoration: none; font-family: 'Fredoka', sans-serif;">🌸 Journey</a>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                <a href="journey-dashboard.html" style="padding: 10px 16px; background: rgba(255,182,77,0.1); border-radius: 8px; text-decoration: none; color: #3D3D3D; font-weight: 500; font-size: 13px; transition: all 0.3s;">📊 Dashboard</a>
-                <a href="mood-calendar.html" style="padding: 10px 16px; background: rgba(255,182,77,0.1); border-radius: 8px; text-decoration: none; color: #3D3D3D; font-weight: 500; font-size: 13px; transition: all 0.3s;">📅 Calendar</a>
-                <a href="feelings-wheel.html" style="padding: 10px 16px; background: rgba(255,182,77,0.1); border-radius: 8px; text-decoration: none; color: #3D3D3D; font-weight: 500; font-size: 13px; transition: all 0.3s;">🎡 Feelings</a>
-                <a href="activity-space.html" style="padding: 10px 16px; background: rgba(255,182,77,0.1); border-radius: 8px; text-decoration: none; color: #3D3D3D; font-weight: 500; font-size: 13px; transition: all 0.3s;">✨ Activities</a>
-                <a href="coping-space.html" style="padding: 10px 16px; background: rgba(255,182,77,0.1); border-radius: 8px; text-decoration: none; color: #3D3D3D; font-weight: 500; font-size: 13px; transition: all 0.3s;">🤍 Coping</a>
+    </div>
+
+    <!-- Entry Detail Modal -->
+    <div class="entry-detail-overlay" id="entry-detail-overlay" role="dialog" aria-modal="true">
+        <div class="entry-detail-modal">
+            <div class="modal-handle"></div>
+            <div class="entry-detail-header">
+                <div class="entry-detail-avatar" id="entry-detail-avatar">🦉</div>
+                <div class="entry-detail-meta">
+                    <h2 class="entry-detail-date" id="entry-detail-date"></h2>
+                    <p class="entry-detail-time" id="entry-detail-time"></p>
+                </div>
+                <button type="button" class="entry-detail-close" id="entry-detail-close"
+                    aria-label="Close">&#215;</button>
+            </div>
+            <div class="entry-detail-body">
+                <div class="entry-detail-prompt" id="entry-detail-prompt-section" style="display:none;">
+                    <p class="entry-detail-prompt-label">Today's Prompt</p>
+                    <p class="entry-detail-prompt-text" id="entry-detail-prompt"></p>
+                </div>
+                <div class="entry-detail-content" id="entry-detail-content"></div>
+                <div class="entry-detail-photos" id="entry-detail-photos"></div>
+                <div class="entry-detail-tags" id="entry-detail-tags"></div>
+                <div class="entry-detail-info" id="entry-detail-info"></div>
+            </div>
+            <div class="entry-detail-footer">
+                <button type="button" class="entry-detail-favorite" id="entry-detail-favorite">&#9825;
+                    Favourite</button>
+                <button type="button" class="entry-detail-close-btn" id="entry-detail-close-btn">Close</button>
             </div>
         </div>
-    </nav>
+    </div>
 
     <script src="data/moods.js"></script>
     <script src="data/prompts.js"></script>
@@ -764,52 +157,15 @@
     <script src="js/avatars.js"></script>
     <script src="js/ui.js"></script>
     <script src="js/app.js"></script>
-
     <script>
-
-        // Load sections on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set today's date
+        document.addEventListener('DOMContentLoaded', function () {
             const today = new Date();
-            const options = { weekday: 'long', month: 'long', day: 'numeric' };
-            document.getElementById('today-date').textContent = today.toLocaleDateString('en-US', options);
+            const opts = { weekday: 'long', month: 'long', day: 'numeric' };
+            document.getElementById('today-date').textContent = today.toLocaleDateString('en-US', opts);
 
-            // Initialize app
-            if (typeof initializePage === 'function') {
-                initializePage();
-            }
+            if (typeof initializePage === 'function') initializePage();
         });
     </script>
-
-    <!-- Entry Detail Modal -->
-    <div class="entry-detail-overlay" id="entry-detail-overlay" role="dialog" aria-modal="true">
-        <div class="entry-detail-modal">
-            <div class="entry-detail-header">
-                <div class="entry-detail-avatar" id="entry-detail-avatar">🦉</div>
-                <div class="entry-detail-meta">
-                    <h2 class="entry-detail-date" id="entry-detail-date"></h2>
-                    <p class="entry-detail-time" id="entry-detail-time"></p>
-                </div>
-                <button type="button" class="entry-detail-close" id="entry-detail-close" aria-label="Close">×</button>
-            </div>
-            <div class="entry-detail-body">
-                <div class="entry-detail-prompt" id="entry-detail-prompt-section" style="display: none;">
-                    <p class="entry-detail-prompt-label">Today's Prompt</p>
-                    <p class="entry-detail-prompt-text" id="entry-detail-prompt"></p>
-                </div>
-                <div class="entry-detail-content" id="entry-detail-content"></div>
-                <div class="entry-detail-photos" id="entry-detail-photos" style="display: none;"></div>
-                <div class="entry-detail-tags" id="entry-detail-tags" style="display: none;"></div>
-                <div class="entry-detail-info">
-                    <div class="entry-detail-mood" id="entry-detail-mood"></div>
-                    <div class="entry-detail-category" id="entry-detail-category"></div>
-                </div>
-            </div>
-            <div class="entry-detail-footer">
-                <button type="button" class="entry-detail-favorite" id="entry-detail-favorite">🤍 Favorite</button>
-                <button type="button" class="entry-detail-close-btn" id="entry-detail-close-btn">Close</button>
-            </div>
-        </div>
-    </div>
 </body>
+
 </html>

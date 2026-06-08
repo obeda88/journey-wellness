@@ -4,25 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Entry - Journey Journal</title>
-    <link rel="stylesheet" href="css/design-system.css">
-    <link rel="stylesheet" href="css/journal.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/theme.css">
 </head>
 <body>
+    <div class="app-shell">
+
     <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <a href="journal-feed.html" class="btn-back">← Back</a>
-                <h1 class="header-title">New Entry</h1>
-                <div style="width: 40px;"></div>
+    <header class="page-header">
+        <div class="page-header-content">
+            <a href="journal-feed.html" class="back-btn" aria-label="Back">←</a>
+            <div>
+                <p class="page-header-subtitle">Create a new memory</p>
+                <h1 class="page-header-title">New Entry</h1>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="main-content">
-        <div class="container">
+    <main class="app-content">
             <form id="entry-form" class="entry-form">
                 <!-- Mood & Avatar Selection -->
                 <section class="form-section card">
@@ -116,8 +115,9 @@
                 </section>
 
             </form>
-        </div>
     </main>
+
+    </div>
 
     <!-- Confirm Modal -->
     <div class="confirm-modal-overlay" id="confirm-modal-overlay" role="dialog" aria-modal="true">
