@@ -404,7 +404,7 @@
 
 .animal-picker {
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 6px;
     max-height: 220px;
     overflow-y: auto;
@@ -512,7 +512,7 @@
 
 @media (max-width: 480px) {
     .animal-picker {
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
