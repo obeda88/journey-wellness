@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coping Space - Journey</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -258,6 +261,7 @@
         }
 
         @media (max-width: 768px) {
+
             .tools-grid,
             .pathways-grid,
             .quick-buttons {
@@ -521,6 +525,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <div class="header">
@@ -536,8 +541,8 @@
         <div class="intro-section">
             <h2 class="intro-title">You're Not Alone 🤍</h2>
             <p class="intro-text">
-                When difficult emotions arise, these tools can help you regulate, ground yourself, and find relief. 
-                Remember: it's okay to not be okay, and seeking support is a sign of strength.
+                These tools can help you regulate unpleasant emotions as they arise.
+                Taking help is a sign of strength
             </p>
         </div>
 
@@ -546,14 +551,17 @@
             <div class="tool-card">
                 <div class="tool-emoji">🫁</div>
                 <div class="tool-title">Breathing Exercise</div>
-                <div class="tool-description">Guided breathing techniques to calm your nervous system and reduce anxiety.</div>
+                <div class="tool-description">Guided breathing techniques to calm your nervous system and reduce
+                    anxiety.</div>
                 <button class="tool-button" onclick="startBreathing()">Start Exercise</button>
             </div>
 
             <div class="tool-card">
                 <div class="tool-emoji">🌍</div>
                 <div class="tool-title">5 Senses Grounding</div>
-                <div class="tool-description">Identify 5 things you see, 4 you hear, 3 you feel, 2 you smell, 1 you taste.</div>
+                <div class="tool-description">Identify 5 things you can see, 4 things you feel, 3 things you can hear, 2
+                    things you can smell and 1 thing you can taste. This is to help you get away from your thoughts back
+                    to your present moment.</div>
                 <button class="tool-button" onclick="start5Senses()">Begin Grounding</button>
             </div>
 
@@ -581,7 +589,8 @@
             <div class="tool-card">
                 <div class="tool-emoji">💪</div>
                 <div class="tool-title">Coping Statements</div>
-                <div class="tool-description">Personalized affirmations to remind yourself of your strength and resilience.</div>
+                <div class="tool-description">Personalized affirmations to remind yourself of your strength and
+                    resilience.</div>
                 <button class="tool-button" onclick="startCopingStatements()">Read Statements</button>
             </div>
         </div>
@@ -777,7 +786,7 @@
             openModal({
                 title: '💭 Thought Challenging',
                 body: `
-                    <p>Work through this process to reframe unhelpful thoughts with compassion and clarity.</p>
+                    <p>This worksheet can help you gently confront your thoughts. Try to go through them one by one as you slowly gain more clarity on them.</p>
                     <div class="form-group">
                         <label class="form-label">1. The thought I'm having</label>
                         <textarea class="form-textarea" id="thought-1" placeholder="Write the thought exactly as it appears..."></textarea>
@@ -817,7 +826,10 @@
             openModal({
                 title: '🎯 Progressive Muscle Relaxation',
                 body: `
-                    <p>Tense each muscle group for 5 seconds, then release for 10. Notice the contrast between tension and relaxation.</p>
+                    <p>Instructions:</p>
+                    <p>Please follow the instructions below. In the order mentioned below, tense each group of muscles for 5 seconds and relax them for 10 seconds and move on to the next group of muscles. Repeat the same with all of them. In the end, just notice how your body as a whole feels. Take deep breaths throughout the exercise </p>
+                    <p><a href="https://www.youtube.com/watch?v=ihO02wUzgkc" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=ihO02wUzgkc</a></p>
+                    <p style="font-style: italic; color: var(--color-text-light);">Here's a video to follow along to.</p>
                     <ul class="instruction-list">
                         ${instructionItem(1, 'Face & Jaw', 'scrunch your face, hold, then release')}
                         ${instructionItem(2, 'Neck & Shoulders', 'raise shoulders to ears, hold, then drop')}
@@ -932,4 +944,5 @@
         }
     </script>
 </body>
+
 </html>
